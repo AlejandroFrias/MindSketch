@@ -8,13 +8,13 @@ During development I will also have a series of unit tests. Since the the langua
 
 ## Implementation plan
 
-Week 1: Finish step 1. Start research for step 2 (since step 1 has already been started and research is a possible bottle neck)
-Week 2: Start step 2. Start step 3 (being able to write up tests will help determine if a host language or execution plan is feasible)
-Week 3: Continue steps 2 and 3. If things went smoothly in the research, possibly finish them. It seems likely right now that the steps involved in determining host language(s) and how exactly a program is run (and then creating a test suite for progress) is going to be tough. Possibly could spread out the development of the progress/showcase test suite with the development of the necessary features to allow starting on implementation sooner.
-Week 4: Finish steps 2 and 3 (if not done already). Start on step 4 and if possible finish it (the first feature I believe will be the easiest, but since it is the first there will be a lot of initial setup, configuration, and other initial things that take extra time).
-Week 5: Finish step 4. This would include testing it with a translation suite that passes the progress test (and is the beginning of building the final demo...)
-Week 6: Start and finish step 5. This may require more research into text editors and execuation plan. But ideally I did that already and with the setup done from previous weeks, this feature should be able to be finished.
-Week 7: Complete a working demo and final writeup. Ideally the demo is fakable to look like I'm saying my commands outloud, but the voice to text translation was done ahead of time. At this stage only the capabilities to generate code snippets and navigate a text file need to be completed. It is possible, if not likely, that it will only work for English to Java and not have been generalized yet to a DSL that can be used for doing any kinds of translations (user defined and for other languages), but that would be really cool and I'm going to aim for that. At the least though the vocabulary of English commands to Java code snippets and cursor naviagtion should be extendable within my DSL, if not by others, at least by me.
+* Week 1: Finish step 1. Start research for step 2 (since step 1 has already been started and research is a possible bottle neck)
+* Week 2: Start step 2. Start step 3 (being able to write up tests will help determine if a host language or execution plan is feasible)
+* Week 3: Continue steps 2 and 3. If things went smoothly in the research, possibly finish them. It seems likely right now that the steps involved in determining host language(s) and how exactly a program is run (and then creating a test suite for progress) is going to be tough. Possibly could spread out the development of the progress/showcase test suite with the development of the necessary features to allow starting on implementation sooner.
+* Week 4: Finish steps 2 and 3 (if not done already). Start on step 4 and if possible finish it (the first feature I believe will be the easiest, but since it is the first there will be a lot of initial setup, configuration, and other initial things that take extra time).
+* Week 5: Finish step 4. This would include testing it with a translation suite that passes the progress test (and is the beginning of building the final demo...)
+* Week 6: Start and finish step 5. This may require more research into text editors and execuation plan. But ideally I did that already and with the setup done from previous weeks, this feature should be able to be finished.
+* Week 7: Complete a working demo and final writeup. Ideally the demo is fakable to look like I'm saying my commands outloud, but the voice to text translation was done ahead of time. At this stage only the capabilities to generate code snippets and navigate a text file need to be completed. It is possible, if not likely, that it will only work for English to Java and not have been generalized yet to a DSL that can be used for doing any kinds of translations (user defined and for other languages), but that would be really cool and I'm going to aim for that. At the least though the vocabulary of English commands to Java code snippets and cursor naviagtion should be extendable within my DSL, if not by others, at least by me.
 
 Stretch Goals: The two features generalized if not done so already. Adding the features described in steps 6 and 7 and then doing step 8 (making the language usable and extendable by others besides myself).
 
@@ -35,5 +35,3 @@ Super Stretch Goal (like basically Cafter graduating in December and looking for
 ## Teamwork plan 
 
 N/A. working alone
-
-*If applicable*
