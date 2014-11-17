@@ -107,7 +107,13 @@ Most of the syntax was inspired by other parsers, like pyPEG. I think I keep the
 
 #### Overview of Architecture
 
+This big picutre is this. Write up in the external DSL a bunch of Parser Objects, similar to those shown at the top. "Run" the program to generate a Sublime Plugin. Save the plugin to the appropriate folder, make the appropriate key bindings, and then you'll be in business.
 
+![overview of use](/documents/resources/big_picture.png)
+
+The details of this are shown below. I'll eb using what we've learning in class with Scala. So the classic parse, ir, semantics format that will eventually output a .py file.
+
+![details of implementation architecture](/documents/resources/details.png)
 
 
 
