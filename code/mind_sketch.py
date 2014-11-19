@@ -34,6 +34,36 @@ class MindSketchCommand(sublime_plugin.TextCommand):
     $C
 }}"""]
 
+		parsers += [re.compile(r"^(generate )?while (loop )?(?P<condition>.+?)$")]
+		templates += ["""while ({0[condition]}) {{
+    $C
+}}"""]
+
+		parsers += [re.compile(r"^((generate|create) )?class (?P<name>.+?) (that )?extends (?P<parent>.+?) (and )?implements (?P<interface>.+?)$")]
+		templates += ["""class {0[name]} extends {0[parent]} implements {0[interface]} {{
+    $C
+}}"""]
+
+		parsers += [re.compile(r"^((generate|create) )?class (?P<name>.+?) (that )?extends (?P<parent>.+?) (and )?implements (?P<interface>.+?)$")]
+		templates += ["""class {0[name]} extends {0[parent]} implements {0[interface]} {{
+    $C
+}}"""]
+
+		parsers += [re.compile(r"^((generate|create) )?class (?P<name>.+?) (that )?extends (?P<parent>.+?)$")]
+		templates += ["""class {0[name]} extends {0[parent]} {{
+    $C
+}}"""]
+
+		parsers += [re.compile(r"^((generate|create) )?class (?P<name>.+?) (that )?implements (?P<interface>.+?)$")]
+		templates += ["""class {0[name]}implements {0[interface]} {{
+    $C
+}}"""]
+
+		parsers += [re.compile(r"^((generate|create) )?class (?P<name>.+?)$")]
+		templates += ["""class {0[name]} {{
+    $C
+}}"""]
+
 
 		# In order, try to match each regex from parsers to the input. Stop on first match
 		i = 0
