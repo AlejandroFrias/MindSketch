@@ -17,6 +17,8 @@ class PromptMindSketchCommand(sublime_plugin.WindowCommand):
 class MindSketchCommand(sublime_plugin.TextCommand):
 
 	def run(self, edit, line):
+		print self.view.scope_name(self.view.sel()[0].begin())
+
 		parsers = []
 		templates = []
 
@@ -64,6 +66,8 @@ class MindSketchCommand(sublime_plugin.TextCommand):
     $C
 }}"""]
 
+		parsers += [re.compile(r"^(print|say) (?P<message>.+?)( to (the )?(console|screen))?$")]
+		templates += ["""System.out.println("{0[message]}");$C"""]
 
 		# In order, try to match each regex from parsers to the input. Stop on first match
 		i = 0
