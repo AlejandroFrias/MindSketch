@@ -6,12 +6,11 @@ newline = ? newline character ?;
 letter = ? lower case letters ?;
 var letter = ? upper case letters ?;
 word = { letter };
-plain text = word, { space, word };
 title = { all characters - ":" }, ":";
 
-group = "(", plain text, {"|", plain text }, ")", ["?"];
-variable = { var letter }
-variable definition = variable, "=", ( "ANY" | "NUMBER" );
+group = "(", word, {"|", word }, ")", ["?"];
+variable = "$", var letter, { [ "_" ], var letter }
+variable definition = variable;
 regex = (group | word | variable defintion), { space, (group | word - "PARSER END" | variable defintion) };
 parser = "PARSER START", newline, regex, newline, "PARSER END";
 

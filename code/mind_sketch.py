@@ -44,15 +44,7 @@ class MindSketchCommand(sublime_plugin.TextCommand):
 
 		# Create and insert the code snippet
 		code = templates[i][language].format(m.groupdict())
-		insert_code(self, edit, code)
-
-		# Set the cursor to to right place by replacing $C
-		if self.view.find("$C", 0, sublime.LITERAL):
-			self.view.sel().clear()
-		while self.view.find("$C", 0, sublime.LITERAL):
-			next_region = self.view.find("$C", 0, sublime.LITERAL)
-			self.view.replace(edit, next_region, "")
-			self.view.sel().add(sublime.Region(next_region.begin(), next_region.begin()))
+		self.view.run_command("insert_snippet", { "contents": code })
 
 def insert_code(self, edit, code):
 	for region in self.view.sel():
@@ -83,55 +75,59 @@ templates = []
 
 parsers += [("(generate)?", "(for)?", "loop", "from", "(?P<start>.+?)", "to", "(?P<end>.+?)", "increment", "by", "(?P<amount>.+?)")]
 templates += [{'java':"""for (int i = {0[start]}; i <= {0[end]}; i = i + {0[amount]}) {{
-	$C
+	$0
 }}""", 'python':"""for x in xrange({0[start]}, {0[end]}, {0[amount]}):
-	$C"""}]
+	$0"""}]
 
 parsers += [("(generate)?", "(for)?", "loop", "from", "(?P<start>.+?)", "to", "(?P<end>.+?)", "decrement", "by", "(?P<amount>.+?)")]
 templates += [{'java':"""for (int i = {0[start]}; i <= {0[end]}; i = i + {0[amount]}) {{
-	$C
+	$0
 }}""", 'python':"""for x in xrange({0[start]}, {0[end]}, {0[amount]}):
-	$C"""}]
+	$0"""}]
 
 parsers += [("(generate)?", "(for)?", "loop", "from", "(?P<start>.+?)", "to", "(?P<end>.+?)")]
 templates += [{'java':"""for (int i = {0[start]}; i <= {0[end]}; i++) {{
-	$C
+	$0
 }}""", 'python':"""for x in xrange({0[start]}, {0[end]}):
-	$C"""}]
+	$0"""}]
 
 parsers += [("(generate)?", "while", "(loop)?", "(?P<condition>.*?)")]
-templates += [{'java':"""while ({0[condition]}) {{
-	$C
-}}""", 'python':"""while {0[condition]}:
-	$C"""}]
+templates += [{'java':"""while (${{1:{0[condition]}}}) {{
+	$0
+}}""", 'python':"""while ${{1:{0[condition]}}}:
+	${{0:pass}}"""}]
 
 parsers += [("(generate|create)?", "class", "(?P<name>.+?)", "(that)?", "extends", "(?P<parent>.+?)", "(and)?", "implements", "(?P<interface>.+?)")]
 templates += [{'java':"""class {0[name]} extends {0[parent]} implements {0[interface]} {{
-	$C
+	$0
 }}"""}]
 
 parsers += [("(generate|create)?", "class", "(?P<name>.+?)", "(that)?", "extends", "(?P<parent>.+?)")]
 templates += [{'java':"""class {0[name]} extends {0[parent]} {{
-	$C
+	$0
 }}"""}]
 
 parsers += [("(generate|create)?", "class", "(?P<name>.+?)", "(that)?", "implements", "(?P<interface>.+?)")]
 templates += [{'java':"""class {0[name]} implements {0[interface]} {{
-	$C
+	$0
 }}"""}]
 
 parsers += [("(generate|create)?", "class", "(?P<name>.+?)")]
 templates += [{'java':"""class {0[name]} {{
-	$C
+	$0
 }}"""}]
 
 parsers += [("(print|say)", "(?P<message>.+?)", "(to)?", "(the)?", "(console|screen)?")]
 templates += [{'java':"""System.out.println("{0[message]}");
-$C""", 
+$0""", 
 'python':"""print "{0[message]}"
-$C"""}]
+$0"""}]
 
 parsers += [("(generate|create)?", "main", "(method)?")]
 templates += [{'java':"""public static void main(String[] args) {{
-	$C
+	$0
 }}"""}]
+
+
+
+
