@@ -104,17 +104,32 @@ code_snippets = CodeSnippetContainer()
 # The below code should be generated from user input file in my DSL.
 
 
+# Translator Object: 'Basic class'
+parsers.add('Basic class', (u'(generate|make|create)?', u'class', u'(?P<NAME>.*?)'))
+parsers.add('Basic class', (u'(?P<NAME>.*?)', u'is', u'a', u'class'))
+code_snippets.add('Basic class', 'java', """class ${{1:{0[NAME]}}} {{
+	
+}}""")
+
+# Translator Object: 'Basic class'
+code_snippets.add('Basic class', 'java', """class {0[NAME]} {{
+	{0[NAME]}(${{1:args}}) {{
+		$0
+	}}
+}}""")
+
 # Translator Object: 'Basic for loop'
-parsers.add('Basic for loop', ('(generate|make)?', '(for)?', 'loop', 'from', '(?P<START>.+?)', 'to', '(?P<END>.+?)'))
+parsers.add('Basic for loop', (u'(generate|make)?', u'(for)?', u'loop', u'from', u'(?P<START>.*?)', u'to', u'(?P<END>.*?)'))
+parsers.add('Basic for loop', (u'(lets)?', u'loop', u'(until|to)', u'(?P<END>.*?)', u'(starting at|from)', u'(?P<START>.*?)'))
 code_snippets.add('Basic for loop', 'java', """for(int i = ${{1:{0[START]}}}; i < ${{2:{0[END]}}}; i++) {{
     $0
 }}""")
 code_snippets.add('Basic for loop', 'python', """for x in xrange(${{1:{0[START]}}}, ${{2:{0[END]}}}):
-    $0""")
+    ${{0:pass}}""")
 
 # Translator Object: 'Print'
-parsers.add('Print', ('(print|say)', '(?P<MESSAGE>.+?)', '(to)?', '(the)?', '(console|screen)?'))
-code_snippets.add('Print', 'java', """System.out.println(${{1:"{0[MESSAGE]}$MESAGE"}});
+parsers.add('Print', (u'(print|say)', u'(?P<MESSAGE>.*?)', u'(to)?', u'(the)?', u'(console|screen)?'))
+code_snippets.add('Print', 'java', """System.out.println(${{1:"{0[MESSAGE]}"}});
 $0""")
 code_snippets.add('Print', 'python', """print(${{1:"{0[MESSAGE]}"}})
 $0""")

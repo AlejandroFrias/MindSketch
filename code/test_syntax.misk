@@ -1,0 +1,19 @@
+Basic for loop:
+
+PARSER START
+words to parse (yo) and a $VAR yo
+PARSER END
+
+CODE START: java
+stuff and maybe a $VAR too
+CODE END
+
+For loop:
+
+PARSER START
+sfsflskdfslkjfsd
+PARSER END
+
+CODE START: python
+asda
+CODE END

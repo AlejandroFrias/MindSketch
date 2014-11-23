@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>misk</string>
+	</array>
+	<key>name</key>
+	<string>MindSketch</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>match</key>
+			<string>^[a-zA-Z]+[a-zA-Z ]*:$</string>
+			<key>name</key>
+			<string>markup.heading.translator_object.name.misk</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>^(CODE START:\s+)([a-z][a-z_\-+]*)$</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.code_snippet.misk</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.language.misk</string>
+				</dict>
+			</dict>
+			<key>contentName</key>
+			<string>string.code_snippet.misk</string>
+			<key>end</key>
+			<string>(CODE END)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\$[A-Z][A-Z_0-9]*</string>
+					<key>name</key>
+					<string>variable.parameter.user_define.misk</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>^(PARSER START)$</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.code_snippet.misk</string>
+				</dict>
+			</dict>
+			<key>contentName</key>
+			<string>string.parser_object.misk</string>
+			<key>end</key>
+			<string>(PARSER END)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\$[A-Z][A-Z_0-9]*</string>
+					<key>name</key>
+					<string>variable.parameter.user_defined.misk</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>.</string>
+			<key>name</key>
+			<string>invalid.illegal.bad_syntax.misk</string>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.misk</string>
+	<key>uuid</key>
+	<string>D94B4088-8504-4756-A988-005EFFA94290</string>
+</dict>
+</plist>

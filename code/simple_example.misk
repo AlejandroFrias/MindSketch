@@ -1,7 +1,27 @@
+Basic class:
+
+PARSER START
+(generate|make|create)? class $NAME
+PARSER END
+
+PARSER START
+$NAME is a class
+PARSER END
+
+CODE START: java
+class ${1:$NAME} {
+	
+}
+CODE END
+
 Basic for loop:
 
 PARSER START
 (generate|make)? (for)? loop from $START to $END
+PARSER END
+
+PARSER START
+(lets)? loop (until|to) $END (starting at|from) $START
 PARSER END
 
 CODE START: java
@@ -12,7 +32,7 @@ CODE END
 
 CODE START: python
 for x in xrange(${1:$START}, ${2:$END}):
-    $0
+    ${0:pass}
 CODE END
 
 Print:
