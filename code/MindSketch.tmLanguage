@@ -18,7 +18,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>^(CODE START:\s+)([a-z][a-z_\-+]*)$</string>
+			<string>^(CODE START:\s+([a-z][a-z_\-+]*))$</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -44,6 +44,35 @@
 					<key>name</key>
 					<string>variable.parameter.user_define.misk</string>
 				</dict>
+				<dict>
+					<key>match</key>
+					<string>\$\d+</string>
+					<key>name</key>
+					<string>storage.type.tab_stop.misk</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(\${\d+:)</string>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>storage.type.tab_stop.misk</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(})</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>match</key>
+							<string>\$[A-Z][A-Z_0-9]*</string>
+							<key>name</key>
+							<string>variable.parameter.user_define.misk</string>
+						</dict>
+					</array>
+				</dict>
 			</array>
 		</dict>
 		<dict>
@@ -68,6 +97,22 @@
 					<string>\$[A-Z][A-Z_0-9]*</string>
 					<key>name</key>
 					<string>variable.parameter.user_defined.misk</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(\((?![^\(]*\)))</string>
+					<key>end</key>
+					<string>$</string>
+					<key>name</key>
+					<string>invalid.illegal.unclosed_group.misk</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>^(?:\([^\(\)]*\)|[^\(\)]*)*(?:\))</string>
+					<key>end</key>
+					<string></string>
+					<key>name</key>
+					<string>invalid.illegal.unopened_group.misk</string>
 				</dict>
 			</array>
 		</dict>

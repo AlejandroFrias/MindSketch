@@ -10,7 +10,7 @@ PARSER END
 
 CODE START: java
 class ${1:$NAME} {
-	
+	$0
 }
 CODE END
 
