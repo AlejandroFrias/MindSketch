@@ -108,7 +108,7 @@ def main():
 		output_lines += ["\n"]
 
 	# The bulk of the plugin work is boiler plate.
-	with open("plugin_template.py") as f:
+	with open("source/code/plugin_template.py") as f:
 		output_lines.insert(0, f.read())
 
 	# Create the plugin

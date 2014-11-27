@@ -12,6 +12,4 @@ virtualenv venv
 echo "Installing Packages"
 source venv/bin/activate
 pip install pypeg2
-pip install collections
-pip install unittest
 pip install nose
