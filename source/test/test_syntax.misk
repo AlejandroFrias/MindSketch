@@ -1,9 +1,10 @@
+# Comments
 Basic for loop:
-
+#Comments
 PARSER START
-words to ()parse ()y and (a $VAR yo)
+words to parse y and $START and $END
 PARSER END
-
+#Comments
 CODE START: java
 for(int i = ${1:$START}; i < ${2:$END}; i++) {
     $0
@@ -12,8 +13,8 @@ CODE END
 
 For loop:
 
-PARSER START
-sfsflskdfslkjfsd $VAR
+PARSER START 
+sfsflskdfslkjfsd $START and $END
 PARSER END
 
 CODE START: python

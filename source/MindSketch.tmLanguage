@@ -12,13 +12,13 @@
 	<array>
 		<dict>
 			<key>match</key>
-			<string>^[a-zA-Z]+[a-zA-Z ]*:$</string>
+			<string>^[\w]+[\w\s]*:[\s]*$</string>
 			<key>name</key>
 			<string>markup.heading.translator_object.name.misk</string>
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>^(CODE START:\s+([a-z][a-z_\-+]*))$</string>
+			<string>^(CODE START:\s+([a-z][a-z_\-+]*))[\s]*$</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -77,7 +77,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>^(PARSER START)$</string>
+			<string>^(PARSER START)[/s]*</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -118,7 +118,13 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>.</string>
+			<string>\s*#.*$</string>
+			<key>name</key>
+			<string>comment.line.number-sign.misk</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>[^\s]+.*</string>
 			<key>name</key>
 			<string>invalid.illegal.bad_syntax.misk</string>
 		</dict>

@@ -1,3 +1,4 @@
+# Comment
 Basic class:
 
 PARSER START
@@ -12,6 +13,22 @@ CODE START: java
 class ${1:$NAME} {
 	$0
 }
+CODE END
+
+CODE START: python
+class ${1:$NAME}:
+	$0
+CODE END
+
+Basic reader:
+
+PARSER START
+(generate|make|create)? reader (for)? $FILE named $NAME
+PARSER END
+
+CODE START: java
+BufferedReader ${1:$NAME} = new BufferedReader(new FileReader(${2:$FILE}));
+$0
 CODE END
 
 Basic for loop:
