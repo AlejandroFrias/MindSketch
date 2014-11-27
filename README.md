@@ -3,9 +3,13 @@
 MindSketch is a DSL (Domain Specific Language) for creating translations from English to code. At this stage, it is specifically geared towards creating a Sublime Text 3 plugin that accepts English commands and outputs code snippets. The dream is to one day be able to dictate code and have the messy worries about syntax for particular languages not be a hinderance to coding or learning to code. With everyone's collaboration, useful translation suites can be made that incoorporate the main ideas of coding and convert them into something useful
 
 ## Dependencies
-
+Sublime Text 3
 Python 2.7.x
 pip
+
+### Installing Sublime Text 3
+
+The generated plugin works for Sublem Text 3 only. It is in beta, but still very functional. It can be downloaded [here](http://www.sublimetext.com/3).
 
 ### Python
 
@@ -41,4 +45,15 @@ MindSketch uses [pip](https://pypi.python.org/pypi/pip)  to manage the various P
   For help on usage: `./mind_sketch.sh -h`
   
   Sample Usage: `.\mind_sketch.sh examples\simple_example.misk`. This will create `mind_sketch.py` that looks identical to `examples\example_plugin.py`
+
+3. Save the plugin into Sublime Text 3.
+
+	Open Sublime Text 3
+	
+	Open up the packages folder from the menu: `Sublime Text -> Preferences -> Browse Packages`
+	
+	Save the file to the `User` folder. (This is the same folder to put the [MindSketch.tmLanguage](https://github.com/AlejandroFrias/MindSketch/blob/master/source/MindSketch.tmLanguage) file into in order to get syntax highlighting for `.misk` files 
+	
+	In Sublime `ctrl+``opens the Sublime console. Error messages can show up here for incorrect use of the plugin.
+
 
