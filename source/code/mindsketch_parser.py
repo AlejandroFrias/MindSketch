@@ -57,6 +57,7 @@ Symbol.regex = re.compile("[\s\w]+")
 
 class Comment(str):
 	# Using contiguous to capture any whitespace after the '#'
+	# So that user defined spacing is preserved
 	grammar = contiguous("#", restline)
 
 class Variable(str):
@@ -86,7 +87,7 @@ class CodeSnippet(str):
 class TranslatorObject(List):
 	grammar = attr("comments", maybe_some(Comment)), \
 			  name(), ":", endl, \
-			  attr("parsers", maybe_some(ParserObject)), endl, \
+			  attr("parser_objects", maybe_some(ParserObject)), endl, \
 			  attr("code_snippets", maybe_some(CodeSnippet))
 
 class MindSketch(List):

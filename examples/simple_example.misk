@@ -1,20 +1,26 @@
-# Comment
+# Translator Object comments go here
+# you can have as many lines of it as you like
+# 	And it will keep the spacing
 Basic class:
 
+# Parser Object comments are available too
 PARSER START
 (generate|make|create)? class $NAME
 PARSER END
 
+# Each Parser Object can gets its own comments
 PARSER START
 $NAME is a class
 PARSER END
 
+# Even the the Code Snippets can get
 CODE START: java
 class ${1:$NAME} {
 	$0
 }
 CODE END
 
+# THeir own comments
 CODE START: python
 class ${1:$NAME}:
 	$0

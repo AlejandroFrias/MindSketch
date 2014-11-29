@@ -134,6 +134,3 @@ parsers = ParserContainer()
 code_snippets = CodeSnippetContainer()
 
 # Above is boiler plate
-# The below code is generated from MindSketch file.
-
-

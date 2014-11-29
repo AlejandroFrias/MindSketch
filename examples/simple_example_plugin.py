@@ -134,36 +134,46 @@ parsers = ParserContainer()
 code_snippets = CodeSnippetContainer()
 
 # Above is boiler plate
-# The below code is generated from MindSketch file.
+# The below code is generated from MindSketch file: examples/simple_example.misk
 
+# Translator Object: Basic class
+# Translator Object comments go here
+# you can have as many lines of it as you like
+# 	And it will keep the spacing
 
-# Translator Object: Symbol(u'Basic class')
-parsers.add(Symbol(u'Basic class'), (u'(generate|make|create)?', u'class', u'(?P<NAME>.*?)'))
-parsers.add(Symbol(u'Basic class'), (u'(?P<NAME>.*?)', u'is', u'a', u'class'))
-code_snippets.add(Symbol(u'Basic class'), 'java', """class ${{1:{0[NAME]}}} {{
+# Parser Object comments are available too
+parsers.add('Basic class', (u'(generate|make|create)?', u'class', u'(?P<NAME>.*?)'))
+# Each Parser Object can gets its own comments
+parsers.add('Basic class', (u'(?P<NAME>.*?)', u'is', u'a', u'class'))
+# THeir own comments
+code_snippets.add('Basic class', 'python', """class ${{1:{0[NAME]}}}:
+	$0""")
+# Even the the Code Snippets can get
+code_snippets.add('Basic class', 'java', """class ${{1:{0[NAME]}}} {{
 	$0
 }}""")
-code_snippets.add(Symbol(u'Basic class'), 'python', """class ${{1:{0[NAME]}}}:
-	$0""")
 
-# Translator Object: Symbol(u'Basic reader')
-parsers.add(Symbol(u'Basic reader'), (u'(generate|make|create)?', u'reader', u'(for)?', u'(?P<FILE>.*?)', u'named', u'(?P<NAME>.*?)'))
-code_snippets.add(Symbol(u'Basic reader'), 'java', """BufferedReader ${{1:{0[NAME]}}} = new BufferedReader(new FileReader(${{2:{0[FILE]}}}));
+# Translator Object: Basic reader
+
+parsers.add('Basic reader', (u'(generate|make|create)?', u'reader', u'(for)?', u'(?P<FILE>.*?)', u'named', u'(?P<NAME>.*?)'))
+code_snippets.add('Basic reader', 'java', """BufferedReader ${{1:{0[NAME]}}} = new BufferedReader(new FileReader(${{2:{0[FILE]}}}));
 $0""")
 
-# Translator Object: Symbol(u'Basic for loop')
-parsers.add(Symbol(u'Basic for loop'), (u'(generate|make)?', u'(for)?', u'loop', u'from', u'(?P<START>.*?)', u'to', u'(?P<END>.*?)'))
-parsers.add(Symbol(u'Basic for loop'), (u'(lets)?', u'loop', u'(until|to)', u'(?P<END>.*?)', u'(starting at|from)', u'(?P<START>.*?)'))
-code_snippets.add(Symbol(u'Basic for loop'), 'java', """for(int i = ${{1:{0[START]}}}; i < ${{2:{0[END]}}}; i++) {{
+# Translator Object: Basic for loop
+
+parsers.add('Basic for loop', (u'(generate|make)?', u'(for)?', u'loop', u'from', u'(?P<START>.*?)', u'to', u'(?P<END>.*?)'))
+parsers.add('Basic for loop', (u'(lets)?', u'loop', u'(until|to)', u'(?P<END>.*?)', u'(starting at|from)', u'(?P<START>.*?)'))
+code_snippets.add('Basic for loop', 'python', """for x in xrange(${{1:{0[START]}}}, ${{2:{0[END]}}}):
+    ${{0:pass}}""")
+code_snippets.add('Basic for loop', 'java', """for(int i = ${{1:{0[START]}}}; i < ${{2:{0[END]}}}; i++) {{
     $0
 }}""")
-code_snippets.add(Symbol(u'Basic for loop'), 'python', """for x in xrange(${{1:{0[START]}}}, ${{2:{0[END]}}}):
-    ${{0:pass}}""")
 
-# Translator Object: Symbol(u'Print')
-parsers.add(Symbol(u'Print'), (u'(print|say)', u'(?P<MESSAGE>.*?)', u'(to)?', u'(the)?', u'(console|screen)?'))
-code_snippets.add(Symbol(u'Print'), 'java', """System.out.println(${{1:"{0[MESSAGE]}"}});
+# Translator Object: Print
+
+parsers.add('Print', (u'(print|say)', u'(?P<MESSAGE>.*?)', u'(to)?', u'(the)?', u'(console|screen)?'))
+code_snippets.add('Print', 'python', """print(${{1:"{0[MESSAGE]}"}})
 $0""")
-code_snippets.add(Symbol(u'Print'), 'python', """print(${{1:"{0[MESSAGE]}"}})
+code_snippets.add('Print', 'java', """System.out.println(${{1:"{0[MESSAGE]}"}});
 $0""")
 
