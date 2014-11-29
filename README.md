@@ -44,7 +44,7 @@ MindSketch uses [pip](https://pypi.python.org/pypi/pip)  to manage the various P
 
   For help on usage: `./mind_sketch.sh -h`
   
-  Sample Usage: `.\mind_sketch.sh examples\simple_example.misk`. This will create `mind_sketch.py` that looks identical to `examples\example_plugin.py`
+  Sample Usage: `.\mind_sketch.sh examples\simple_example.misk`. This will create `mind_sketch.py` that looks identical to `examples\simple_example_plugin.py`
 
 3. Save the plugin into Sublime Text 3.
 
