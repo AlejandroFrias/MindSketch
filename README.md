@@ -32,7 +32,7 @@ MindSketch uses [pip](https://pypi.python.org/pypi/pip)  to manage the various P
 
 2. In the root directory of the project, run the `bootstrap.sh` script (may require use of `sudo`):
 
-	`./bootstrap.sh` or `sh bootstrap.sh`
+	`./bootstrap.sh` (if it says permission denied, you may need to make it an executable or run it with `sh`
 	
 ## Usage Instructions
 
