@@ -134,46 +134,25 @@ parsers = ParserContainer()
 code_snippets = CodeSnippetContainer()
 
 # Above is boiler plate
-# The below code is generated from MindSketch file: examples/simple_example.misk
+# The below code is generated from MindSketch file: source/test/proper_syntax.misk
 
-# Translator Object: Basic class
-# Translator Object comments go here
-# you can have as many lines of it as you like
-# 	And it will keep the spacing
+# Translator Object: Title should handle spaces and Numbers23
+# Comments for the Translator Object
+#    Should handle multiple lines and preserve spacing
+# An be parsable even with lines seperating them
+# Multiple Translator Objects should be able to be parsed
+# And they can have the same name without overwriting parsers
+# But it could overwrite code snippets or add to them depending on 
+# the language of the snippet
 
-# Parser Object comments are available too
-parsers.add('Basic class', (u'(generate|make|create)?', u'class', u'(?P<NAME>.*?)'))
-# Each Parser Object can gets its own comments
-parsers.add('Basic class', (u'(?P<NAME>.*?)', u'is', u'a', u'class'))
-# Even the the Code Snippets can get
-code_snippets.add('Basic class', 'java', """class ${{1:{0[NAME]}}} {{
-	$0
-}}""")
-# THeir own comments
-code_snippets.add('Basic class', 'python', """class ${{1:{0[NAME]}}}:
-	$0""")
-
-# Translator Object: Basic reader
-
-parsers.add('Basic reader', (u'(generate|make|create)?', u'reader', u'(for)?', u'(?P<FILE>.*?)', u'named', u'(?P<NAME>.*?)'))
-code_snippets.add('Basic reader', 'java', """BufferedReader ${{1:{0[NAME]}}} = new BufferedReader(new FileReader(${{2:{0[FILE]}}}));
-$0""")
-
-# Translator Object: Basic for loop
-
-parsers.add('Basic for loop', (u'(generate|make)?', u'(for)?', u'loop', u'from', u'(?P<START>.*?)', u'to', u'(?P<END>.*?)'))
-parsers.add('Basic for loop', (u'(lets)?', u'loop', u'(until|to)', u'(?P<END>.*?)', u'(starting at|from)', u'(?P<START>.*?)'))
-code_snippets.add('Basic for loop', 'java', """for(int i = ${{1:{0[START]}}}; i < ${{2:{0[END]}}}; i++) {{
+# Parser Objects should get comments
+parsers.add('Title should handle spaces and Numbers23', (u'words', u'to', u'parse', u'y', u'and', u'(?P<START>.*?)', u'and', u'(?P<END>.*?)'))
+parsers.add('Title should handle spaces and Numbers23', (u'whatever', u'(i|do)?', u'(?P<START>.*?)', u'and', u'(?P<END>.*?)'))
+# As well as Code Snippets
+#    And the multi-line thing
+code_snippets.add('Title should handle spaces and Numbers23', 'java', """for(int i = ${{1:{0[START]}}}; i < ${{2:{0[END]}}}; i++) {{
     $0
 }}""")
-code_snippets.add('Basic for loop', 'python', """for x in xrange(${{1:{0[START]}}}, ${{2:{0[END]}}}):
+code_snippets.add('Title should handle spaces and Numbers23', 'python', """for x in xrange(${{1:{0[START]}}}, ${{2:{0[END]}}}):
     ${{0:pass}}""")
-
-# Translator Object: Print
-
-parsers.add('Print', (u'(print|say)', u'(?P<MESSAGE>.*?)', u'(to)?', u'(the)?', u'(console|screen)?'))
-code_snippets.add('Print', 'java', """System.out.println(${{1:"{0[MESSAGE]}"}});
-$0""")
-code_snippets.add('Print', 'python', """print(${{1:"{0[MESSAGE]}"}})
-$0""")
 

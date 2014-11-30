@@ -6,17 +6,23 @@ newline = ? newline character ?;
 letter = ? lower case letters ?;
 var letter = ? upper case letters ?;
 word = { letter };
-title = { all characters - ":" }, ":";
+
+comment = "#", { all characters }, newline
+
+name = { all characters - ":" }, ":";
 
 group = "(", word, {"|", word }, ")", ["?"];
 variable = "$", var letter, { [ "_" ], var letter }
-variable definition = variable;
-regex = (group | word | variable defintion), { space, (group | word - "PARSER END" | variable defintion) };
-parser = "PARSER START", newline, regex, newline, "PARSER END";
 
-code snippet = { all characters | "$C" | variable } (* just can't spell "CODE END" *)
-template = "CODE START:", space, word, newline, code snippet, newline, "CODE END"
+regex = (group | word | variable ), { space, ( group | word - "PARSER END" | variable ) };
 
-translator = title, parser, { template };
+parser object = { comment }, "PARSER START", newline, regex, newline, "PARSER END";
+
+language name = { ( letter | "." | "+" };
+code snippet body = { all characters | "$C" | variable } (* just can't spell "CODE END" *)
+code snippet = { comment }, "CODE START:", space, language name, newline, code snippet body, newline, "CODE END"
+
+translator = { comment }, name, { parser object }, { code snippet };
+
 grammar = { translator };
 ```

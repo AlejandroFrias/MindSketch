@@ -1,14 +1,39 @@
-# Translator Object comments go here
-# you can have as many lines of it as you like
-# 	And it will keep the spacing
+Basic Runnable Program:
+
+PARSER START
+(let's)? (make|write) a $NAME program
+PARSER END
+
+PARSER START
+(begin|build) $NAME program
+PARSER END
+
+PARSER START
+(let's)? (make|write|build) a runnable program called $NAME
+PARSER END
+
+CODE START: java
+class $NAME {
+	public static void main(String[] args) {
+		$0
+	}
+}
+CODE END
+
+CODE START: python
+def $NAME():
+	${0:pass}
+
+if __name__ == '__main__':
+	$NAME()
+CODE END
+
 Basic class:
 
-# Parser Object comments are available too
 PARSER START
 (generate|make|create)? class $NAME
 PARSER END
 
-# Each Parser Object can gets its own comments
 PARSER START
 $NAME is a class
 PARSER END
@@ -72,4 +97,18 @@ CODE END
 CODE START: python
 print(${1:"$MESSAGE"})
 $0
+CODE END
+
+Function Call:
+
+PARSER START
+call $FUNCTION (with|on) $VARS
+PARSER END
+
+CODE START: java
+$FUNCTION(${1:$VARS})$0
+CODE END
+
+CODE START: python
+$FUNCTION(${1:$VARS})$0
 CODE END

@@ -40,8 +40,8 @@ from __future__ import unicode_literals, print_function
 from pypeg2 import *
 from pypeg2.xmlast import thing2xml
 
-
-lower_case_word = re.compile("[a-z]+")
+# Includes words with numerals, capital letters and one apostrophe
+english_word = re.compile("(?!PARSER END)(\w+'\w*|'\w+|\w+)")
 upper_case_word = re.compile("[A-Z]+")
 		
 simple_group = re.compile("\([a-z]+( [a-z]+)*(\|[a-z]+( [a-z]+)*)*\)\??")
@@ -64,7 +64,7 @@ class Variable(str):
 	grammar = variable
 
 class Word(str):
-	grammar = lower_case_word
+	grammar = english_word
 
 class Group(str):
 	grammar = simple_group

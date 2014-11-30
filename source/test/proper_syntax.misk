@@ -1,0 +1,39 @@
+
+
+# Comments for the Translator Object
+
+#    Should handle multiple lines and preserve spacing
+# An be parsable even with lines seperating them
+
+Title should handle spaces and Numbers23:
+
+
+# Parser Objects should get comments
+PARSER START
+words to parse y and $START and $END
+PARSER END
+
+# As well as Code Snippets
+
+#    And the multi-line thing
+
+CODE START: java
+for(int i = ${1:$START}; i < ${2:$END}; i++) {
+    $0
+}
+CODE END
+
+# Multiple Translator Objects should be able to be parsed
+# And they can have the same name without overwriting parsers
+# But it could overwrite code snippets or add to them depending on 
+# the language of the snippet
+Title should handle spaces and Numbers23:
+
+PARSER START 
+whatever (i|do)? $START and $END
+PARSER END
+
+CODE START: python
+for x in xrange(${1:$START}, ${2:$END}):
+    ${0:pass}
+CODE END

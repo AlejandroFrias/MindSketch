@@ -28,7 +28,11 @@ Instructions for creating key binding in Sublime Text 3:
 @contact alejandro.frias@ymail.com
 @version 2014.11.26
 """
-import argparse, mindsketch_parser, re, warnings, collections
+import argparse
+import mindsketch_parser
+import re
+import warnings
+import collections
 from pypeg2 import parse
 
 def main():
@@ -39,12 +43,10 @@ def main():
 
 	print("Opening MindSketch file: " + args.file)
 	text = "COULD NOT OPEN FILE"
-	try:
-		f = open(args.file, "r")
-		text = f.read() 
-		f.close
-	except Exception, e:
-		raise e
+	
+	f = open(args.file, "r")
+	text = f.read() 
+	f.close
 
 	# Parse the MindSketch file into an AST
 	# Any Syntax errors will happen here
@@ -89,7 +91,7 @@ class TranslatorObjectList(collections.OrderedDict):
 		if name in self:
 			self[name]["comments"] += translator_object.comments
 		else:
-			self[name] = {"comments": translator_object.comments, "parser_objects": [], "code_snippets": dict(), "variables": None}
+			self[name] = {"comments": translator_object.comments, "parser_objects": [], "code_snippets": collections.OrderedDict(), "variables": None}
 
 		for parser_object in translator_object.parser_objects:
 			self.add_parser_object(translator_object.name, parser_object)
@@ -127,14 +129,14 @@ class TranslatorObjectList(collections.OrderedDict):
 	def validate(self):
 		for name in self: 
 			if self[name]["variables"] is None:
-				raise ValueError("No Parser Objects have been defined for Translator Object: " + repr(name))
+				raise ValueError("No Parser Objects have been defined for Translator Object: " + name)
 			
 			# Validate that each code_snippet has at least one 
 			for code_snippet in self[name]["code_snippets"].itervalues():
 				left_over_vars = code_snippet
 				for var in self[name]["variables"]:
 					if var not in code_snippet:
-						raise ValueError("Didn't use all variables in Translator Object: " + name + " in Code Snippet for: " + code.language)
+						raise ValueError("Didn't use all variables in Translator Object: " + name + " in Code Snippet for: " + code_snippet.language)
 
 				# It might be a typo if there are any varialbe-like strings left in the code snippet
 				left_over_vars = set(mindsketch_parser.variable.findall(code_snippet)) - self[name]["variables"]

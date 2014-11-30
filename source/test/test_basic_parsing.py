@@ -1,4 +1,4 @@
-"""Tests for MindSketch Parseing.
+"""Tests for MindSketch Parsing.
 
 This set of test checks for proper parsing of individual elements
 of the grammar.
@@ -8,7 +8,7 @@ of the grammar.
 @version 2014.11.26
 """
 import unittest
-from code.mindsketch_parser import Comment, Variable, Word, \
+from source.code.mindsketch_parser import Comment, Variable, Word, \
 						 Group, ParserObject, LanguageName, \
 						 CodeSnippet, TranslatorObject
 						 
@@ -113,16 +113,15 @@ class TestUnitWord(unittest.TestCase):
 		self.words.append("hello")
 		self.words.append("world")
 		self.words.append("z")
-
-		# TODO: support the following
-		self.will_be_words = []
-		self.will_be_words.append("Not")
-		self.will_be_words.append("WORD")
-		self.will_be_words.append("can't")
+		self.words.append("Not")
+		self.words.append("WORD")
+		self.words.append("wOoD")
+		self.words.append("can't")
+		self.words.append("3")
+		self.words.append("34")
 
 		# Maybe one day..
-		self.will_be_words.append("3")
-		self.will_be_words.append("34")
+		self.will_be_words = []
 		self.will_be_words.append("34,002")
 		self.will_be_words.append("$3.02")
 		self.will_be_words.append("%25")
@@ -130,6 +129,7 @@ class TestUnitWord(unittest.TestCase):
 		# These are never words
 		self.not_words = []
 		self.not_words.append("$Hello")
+		self.not_words.append("$VAR")
 		self.not_words.append("this is multiple words")
 		self.not_words.append("")
 		self.not_words.append(" ")
@@ -140,13 +140,16 @@ class TestUnitWord(unittest.TestCase):
 			p = parse(word, Word)
 			self.assertEqual(p, word)
 
+	def test_will_be_word(self):
+		for will_be_word in self.will_be_words:
+			print("TestUnitWord.assertRaises for: " + will_be_word)
+			self.assertRaises(SyntaxError, parse, will_be_word, Word)
+
+	def test_not_word(self):
 		for not_word in self.not_words:
 			print("TestUnitWord.assertRaises for: " + not_word)
 			self.assertRaises(SyntaxError, parse, not_word, Word)
 		
-		for will_be_word in self.will_be_words:
-			print("TestUnitWord.assertRaises for: " + will_be_word)
-			self.assertRaises(SyntaxError, parse, will_be_word, Word)
 
 class TestUnitGroup(unittest.TestCase):
 	"""Test Group parsing
@@ -416,7 +419,7 @@ PARSER END
 		p = parse(translator_object, TranslatorObject)
 		self.assertEqual(p.name, name)
 		self.assertEqual(map(compose, p.comments), comments)
-		self.assertEqual(map(" ".join, p.parsers), phrases)
+		self.assertEqual(map(" ".join, p.parser_objects), phrases)
 		(languages, just_snippets) = zip(*snippets) if snippets != [] else ([], [])
 		self.assertEqual(p.code_snippets, list(just_snippets))
 		self.assertEqual([c.language for c in p.code_snippets], list(languages))
