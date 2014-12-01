@@ -14,7 +14,7 @@ from source.code.mindsketch_parser import MindSketch
 
 class TestCreatePlugin(unittest.TestCase):
 	def setUp(self):
-		self.proper_syntax = "source/test/proper_syntax.misk"
+		self.proper_syntax = "source/test/resources/proper_syntax.misk"
 		self.proper_syntax_expected = """# Translator Object: Title should handle spaces and Numbers23
 # Comments for the Translator Object
 #    Should handle multiple lines and preserve spacing
@@ -25,8 +25,8 @@ class TestCreatePlugin(unittest.TestCase):
 # the language of the snippet
 
 # Parser Objects should get comments
-parsers.add('Title should handle spaces and Numbers23', (u'words', u'to', u'parse', u'y', u'and', u'(?P<START>.*?)', u'and', u'(?P<END>.*?)'))
-parsers.add('Title should handle spaces and Numbers23', (u'whatever', u'(i|do)?', u'(?P<START>.*?)', u'and', u'(?P<END>.*?)'))
+parsers.add('Title should handle spaces and Numbers23', (u'words', u'(and)', u'(some groups|groups of a kind|groups)', u'to', u'be', u'parsed', u'with', u'(?P<START>.*?)', u'and', u'(?P<END>.*?)', u'variables',))
+parsers.add('Title should handle spaces and Numbers23', (u'whatever', u'(i|do)', u'(?P<START>.*?)', u'and', u'(?P<END>.*?)',))
 # As well as Code Snippets
 #    And the multi-line thing
 code_snippets.add('Title should handle spaces and Numbers23', 'java', \"\"\"for(int i = ${{1:{0[START]}}}; i < ${{2:{0[END]}}}; i++) {{
@@ -36,9 +36,9 @@ code_snippets.add('Title should handle spaces and Numbers23', 'python', \"\"\"fo
     ${{0:pass}}\"\"\")
 
 """
-		self.mismatch_variables = "source/test/mismatch_variables.misk"
-		self.missing_variables = "source/test/missing_variables.misk"
-		self.no_parsers = "source/test/no_parsers.misk"
+		self.mismatch_variables = "source/test/resources/mismatch_variables.misk"
+		self.missing_variables = "source/test/resources/missing_variables.misk"
+		self.no_parsers = "source/test/resources/no_parsers.misk"
 
 	"""
 	proper_syntax.misk has every syntax feature, so it should 

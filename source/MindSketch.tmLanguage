@@ -11,12 +11,6 @@
 	<key>patterns</key>
 	<array>
 		<dict>
-			<key>match</key>
-			<string>^[\w]+[\w\s]*:[\s]*$</string>
-			<key>name</key>
-			<string>markup.heading.translator_object.name.misk</string>
-		</dict>
-		<dict>
 			<key>begin</key>
 			<string>^(CODE START:\s+([a-z][a-z_\-+]*))[\s]*$</string>
 			<key>captures</key>
@@ -98,29 +92,19 @@
 					<key>name</key>
 					<string>variable.parameter.user_defined.misk</string>
 				</dict>
-				<dict>
-					<key>begin</key>
-					<string>(\((?![^\(]*\)))</string>
-					<key>end</key>
-					<string>$</string>
-					<key>name</key>
-					<string>invalid.illegal.unclosed_group.misk</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>^(?:\([^\(\)]*\)|[^\(\)]*)*(?:\))</string>
-					<key>end</key>
-					<string></string>
-					<key>name</key>
-					<string>invalid.illegal.unopened_group.misk</string>
-				</dict>
 			</array>
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\s*#.*$</string>
+			<string>^\s*#.*$</string>
 			<key>name</key>
 			<string>comment.line.number-sign.misk</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>^[\w]+[\w\s]*:[\s]*$</string>
+			<key>name</key>
+			<string>markup.heading.translator_object.name.misk</string>
 		</dict>
 		<dict>
 			<key>match</key>

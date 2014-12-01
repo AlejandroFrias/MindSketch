@@ -1,0 +1,290 @@
+Plus:
+PARSER START
+plus
+PARSER END
+
+CODE START: python
+ + $0
+CODE END
+
+Minus:
+PARSER START
+minus
+PARSER END
+
+CODE START: python
+ - $0
+CODE END
+
+String:
+PARSER START
+string $STRING
+PARSER END
+
+CODE START: python
+"$STRING"$0
+CODE END
+
+Basic Runnable Program:
+
+PARSER START
+(make|write) a $NAME program
+PARSER END
+
+PARSER START
+(begin|build|make|write|create) $NAME program
+PARSER END
+
+PARSER START
+(make|write|build) a program called $NAME
+PARSER END
+
+CODE START: python
+import sys
+
+def $NAME():
+	${1:pass}
+$0
+
+if __name__ == '__main__':
+	$NAME()
+CODE END
+
+CODE START: java
+class $NAME {
+	public static void main(String[] args) {
+		$1
+	}
+	$0
+}
+CODE END
+
+
+Basic class:
+
+PARSER START
+(generate|make|create) class $NAME
+PARSER END
+
+PARSER START
+$NAME is a class
+PARSER END
+
+# Even the the Code Snippets can get
+CODE START: java
+class ${1:$NAME} {
+	$2
+}
+$3
+CODE END
+
+# THeir own comments
+CODE START: python
+class ${1:$NAME}:
+	${2:pass}
+$0
+CODE END
+
+Basic reader:
+
+PARSER START
+reader for $FILE named $NAME
+PARSER END
+
+CODE START: java
+BufferedReader ${1:$NAME} = new BufferedReader(new FileReader(${2:$FILE}));
+$0
+CODE END
+
+Basic for loop:
+
+PARSER START
+loop from $START to $END
+PARSER END
+
+PARSER START
+loop (until|to) $END (starting at|from) $START
+PARSER END
+
+CODE START: java
+for(int i = ${1:$START}; i < ${2:$END}; i++) {
+    $3
+}
+$0
+CODE END
+
+CODE START: python
+for x in xrange(${1:$START}, ${2:$END}):
+    ${3:pass}
+$0
+CODE END
+
+Print:
+
+PARSER START
+(print|say) $MESSAGE
+PARSER END
+
+CODE START: java
+System.out.println(${1:"$MESSAGE"});
+$0
+CODE END
+
+CODE START: python
+print(${1:"$MESSAGE"})
+$0
+CODE END
+
+System arguments:
+
+PARSER START
+(system argument|system arg|arg|argument) number $POS
+PARSER END
+
+PARSER START
+get the $POS (system argument|arg|argument)
+PARSER END
+
+CODE START: python
+sys.argv[${1:$POS}]$0
+CODE END
+
+Function Define:
+
+PARSER START
+(define|create) function $FUN
+PARSER END
+
+PARSER START
+function $FUN
+PARSER END
+
+CODE START: python
+def $FUN($1):
+	${2:pass}
+$0
+CODE END
+
+Function Call:
+
+PARSER START
+call $FUNCTION (with|on) $VARS
+PARSER END
+
+CODE START: java
+$FUNCTION(${1:$VARS})$0
+CODE END
+
+CODE START: python
+$FUNCTION(${1:$VARS})$0
+CODE END
+
+If else:
+
+PARSER START
+if $CONDITION do $ACTION1 (else|otherwise) do $ACTION2
+PARSER END
+
+PARSER START
+do $ACTION1 if $CONDITION otherwise do $ACTION2
+PARSER END
+
+CODE START: python
+if ${1:$CONDITION}:
+	${2:$ACTION1}
+else:
+	${3:$ACTION2}
+$0
+CODE END
+
+CODE START: java
+if (${1:$CONDITION}) {
+	${2:$ACTION1}
+} else {
+	${3:$ACTION2}
+}
+$0
+CODE END
+
+If Condition:
+
+PARSER START
+if $CONDITION do $ACTION
+PARSER END
+
+PARSER START
+do $ACTION if $CONDITION
+PARSER END
+
+CODE START: python
+if ${1:$CONDITION}:
+	${2:$ACTION}
+$0
+CODE END
+
+CODE START: java
+if (${1:$CONDITION}) {
+	${2:$ACTION}
+}
+$0
+CODE END
+
+Return:
+
+PARSER START
+return $THING
+PARSER END
+
+CODE START: python
+return ${1:$THING}
+$0
+CODE END
+
+CODE START: java
+return ${1:$THING};
+$0
+CODE END
+
+Less than:
+
+PARSER START
+$FIRST_THING (is less than|less than) $SECOND_THING
+PARSER END
+
+CODE START: python
+${1:$FIRST_THING} < ${2:$SECOND_THING}$0
+CODE END
+
+CODE START: java
+${1:$FIRST_THING} < ${2:$SECOND_THING}$0
+CODE END
+
+Greater than:
+
+PARSER START
+$FIRST_THING (is greater than|greater than) $SECOND_THING
+PARSER END
+
+CODE START: python
+${1:$FIRST_THING} > ${2:$SECOND_THING}$0
+CODE END
+
+CODE START: java
+${1:$FIRST_THING} > ${2:$SECOND_THING}$0
+CODE END
+
+Variable assignment:
+
+PARSER START
+$NAME (equals|is) $VALUE
+PARSER END
+
+CODE START: python
+$NAME = ${1:$VALUE}
+$0
+CODE END
+
+CODE START: java
+$NAME = ${1:$VALUE};
+$0
+CODE END

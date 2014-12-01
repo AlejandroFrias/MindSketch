@@ -41,15 +41,15 @@ from pypeg2 import *
 from pypeg2.xmlast import thing2xml
 
 # Includes words with numerals, capital letters and one apostrophe
-english_word = re.compile("(?!PARSER END)(\w+'\w*|'\w+|\w+)")
+lower_case_word = re.compile("[a-z]+") # re.compile("(?!PARSER END)(\w+'\w*|'\w+|\w+)")
 upper_case_word = re.compile("[A-Z]+")
 		
-simple_group = re.compile("\([a-z]+( [a-z]+)*(\|[a-z]+( [a-z]+)*)*\)\??")
+simple_group = re.compile("\([a-z]+( [a-z]+)*(\|[a-z]+( [a-z]+)*)*\)")
 variable = re.compile("\$[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*")
 
 language = re.compile("[a-z\.\+]+")
 
-code_snippet = re.compile("(?:(?!CODE END).)+(?:\n(?:(?!CODE END).)+)*")
+code_snippet = re.compile("(?:(?!CODE END).+)(?:\n(?:(?!CODE END).*))*")
 
 comment = re.compile("^#.*")
 
@@ -64,7 +64,7 @@ class Variable(str):
 	grammar = variable
 
 class Word(str):
-	grammar = english_word
+	grammar = lower_case_word
 
 class Group(str):
 	grammar = simple_group

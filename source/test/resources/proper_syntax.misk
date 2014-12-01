@@ -10,7 +10,7 @@ Title should handle spaces and Numbers23:
 
 # Parser Objects should get comments
 PARSER START
-words to parse y and $START and $END
+words (and) (some groups|groups of a kind|groups) to be parsed with $START and $END variables
 PARSER END
 
 # As well as Code Snippets
@@ -30,7 +30,7 @@ CODE END
 Title should handle spaces and Numbers23:
 
 PARSER START 
-whatever (i|do)? $START and $END
+whatever (i|do) $START and $END
 PARSER END
 
 CODE START: python

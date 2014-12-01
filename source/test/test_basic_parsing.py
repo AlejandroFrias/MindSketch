@@ -113,15 +113,15 @@ class TestUnitWord(unittest.TestCase):
 		self.words.append("hello")
 		self.words.append("world")
 		self.words.append("z")
-		self.words.append("Not")
-		self.words.append("WORD")
-		self.words.append("wOoD")
-		self.words.append("can't")
-		self.words.append("3")
-		self.words.append("34")
 
 		# Maybe one day..
 		self.will_be_words = []
+		self.will_be_words.append("Not")
+		self.will_be_words.append("WORD")
+		self.will_be_words.append("wOoD")
+		self.will_be_words.append("can't")
+		self.will_be_words.append("3")
+		self.will_be_words.append("34")
 		self.will_be_words.append("34,002")
 		self.will_be_words.append("$3.02")
 		self.will_be_words.append("%25")
@@ -164,10 +164,17 @@ class TestUnitGroup(unittest.TestCase):
 		self.groups.append("(simple)")
 		self.groups.append("(two|choices)")
 		self.groups.append("(multiple|choices|yup)")
-		self.groups.append("(optional)?")
-		self.groups.append("(optional|with|options)?")
-		self.groups.append("(spaces too)?")
-		self.groups.append("(spaces too|with groups)?")
+
+		self.will_be_groups = []
+		self.will_be_groups.append("(optional)?")
+		self.will_be_groups.append("(optional|with|options)?")
+		self.will_be_groups.append("(spaces too)?")
+		self.will_be_groups.append("(spaces too|with groups)?")
+		self.will_be_groups.append("(They)")
+		self.will_be_groups.append("(Haven't)")
+		self.will_be_groups.append("(words')")
+		self.will_be_groups.append("(With Apostrophes')")
+		self.will_be_groups.append("(These should work too| Yup's 'em)")
 
 		self.not_groups = []
 		self.not_groups.append("()")
@@ -188,6 +195,11 @@ class TestUnitGroup(unittest.TestCase):
 			self.assertEqual(p, group)
 
 	def test_not_group(self):
+		for group in self.will_be_groups:
+			print("TestUnitGroup.assertRaises for: " + group)
+			self.assertRaises(SyntaxError, parse, group, Group)
+
+	def test_not_group(self):
 		for group in self.not_groups:
 			print("TestUnitGroup.assertRaises for: " + group)
 			self.assertRaises(SyntaxError, parse, group, Group)
@@ -203,8 +215,8 @@ class TestUnitParserObject(unittest.TestCase):
 	def setUp(self):
 		self.phrases = []
 		self.phrases.append("simple phrase with only words")
-		self.phrases.append("has (some)? (groups|regex groups)")
-		self.phrases.append("has (some)? groups (and|as well as) $VARIABLES")
+		self.phrases.append("has (some) (groups|regex groups)")
+		self.phrases.append("has (some) groups (and|as well as) $VARIABLES")
 
 		self.comments = []
 		self.comments.append("# A comment")
@@ -307,6 +319,7 @@ class TestUnitCodeSnippet(unittest.TestCase):
 		self.code_snippets.append(("java", 'System.out.println("$MESSAGE");'))
 		self.code_snippets.append(("c++", 'printf("$MESSAGE");'))
 		self.code_snippets.append(("java", 'for(int i = $START; i < $END; i++ {\n\t$0\n}'))
+		self.code_snippets.append(("java", 'def $FUNCTION():\n\tpass\n\nif __name__ == "main":\n\t$FUNCTION()'))
 
 		self.comments = ["# ONE COMMENT", "# TWO COMMENT"]
 
@@ -370,8 +383,8 @@ class TestUnitTranslatorObject(unittest.TestCase):
 		self.names.append("A title for a Translator Object")
 
 		self.phrases.append("simple phrase with only words")
-		self.phrases.append("has (some)? (groups|regex groups)")
-		self.phrases.append("has (some)? groups (and|as well as) $VARIABLES")
+		self.phrases.append("has (some) (groups|regex groups)")
+		self.phrases.append("has (some) groups (and|as well as) $VARIABLES")
 
 		self.code_snippets = []
 		self.code_snippets.append(("python", 'print("$MESSAGE")'))

@@ -33,13 +33,20 @@ import mindsketch_parser
 import re
 import warnings
 import collections
+import sys
+import os
 from pypeg2 import parse
 
 def main():
 	p = argparse.ArgumentParser (description="Converts MindSketch (.misk) file into a Sublime Text 3.")
 	p.add_argument("file", help=".misk file of Translator Objects")
-	p.add_argument("output", help="file name to write to (inlude the file extension .py)")
+	p.add_argument("output", help="file name to save plugin as", nargs="?")
 	args = p.parse_args()
+
+	if args.output is None:
+		sys.path.append(os.path.expanduser("~/Library/Application Support/Sublime Text 3/Packages/User"))
+		args.output = os.path.expanduser("~/Library/Application Support/Sublime Text 3/Packages/User/mind_sketch.py")
+		print(args.output)
 
 	print("Opening MindSketch file: " + args.file)
 	text = "COULD NOT OPEN FILE"
@@ -185,7 +192,7 @@ class TranslatorObjectList(collections.OrderedDict):
 				parser_groups += [repr(var_str)]
 			else:
 				parser_groups += [repr(group)]
-		parser_str += "(" + ", ".join(parser_groups) + "))" + "\n"
+		parser_str += "(" + ", ".join(parser_groups) + ",))" + "\n"
 		
 		output_lines.append(parser_str)
 		return output_lines

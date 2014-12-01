@@ -36,17 +36,19 @@ MindSketch uses [pip](https://pypi.python.org/pypi/pip)  to manage the various P
 	
 ## Usage Instructions
 
-1. Write a MindSketch file. If you save it as a `.misk` and save the [MindSketch.tmLanguage](https://github.com/AlejandroFrias/MindSketch/blob/master/source/MindSketch.tmLanguage) file into Sublime Text 3's User folder in Packages, then helpful syntax highlighting will ensue. It is also TextMate compatible.
+1. Install [Sublime Text 3](http://www.sublimetext.com/3)
 
-2. Run the following script with the file you just created and optionally an output file name. Default output is `mind_sketch.py` in the current directory.
+2. Write a MindSketch file. If you save it as a `.misk` and save the [MindSketch.tmLanguage](https://github.com/AlejandroFrias/MindSketch/blob/master/source/MindSketch.tmLanguage) file into Sublime Text 3's User folder in Packages, then helpful syntax highlighting will ensue. It is also TextMate compatible.
+
+3. Run the following script with the file you just created and optionally an output file name. Default output is `mind_sketch.py` into your User Package in Sublime Text 3 (only works on OSX after default installation of Sublime Text 3.
   
   `./mind_sketch.sh <MindSketch file> [<output file>]`
 
   For help on usage: `./mind_sketch.sh -h`
   
-  Sample Usage: `.\mind_sketch.sh examples\simple_example.misk`. This will create `mind_sketch.py` that looks identical to `examples\simple_example_plugin.py`
+  Sample Usage: `.\mind_sketch.sh examples\example.misk`. This will create `mind_sketch.py` that looks identical to `examples\example.py` and save it save it to the User Package for Sublime Text 3 (which will load the plugin)
 
-3. Save the plugin into Sublime Text 3.
+4. Save the plugin into Sublime Text 3 if you didn't use the default
 
 	Open Sublime Text 3
 	
@@ -56,4 +58,11 @@ MindSketch uses [pip](https://pypi.python.org/pypi/pip)  to manage the various P
 	
 	In Sublime `ctrl+``opens the Sublime console. Error messages can show up here for incorrect use of the plugin.
 
+5. Create a key binding for it.
+
+	In the menu open up `Sublime Text -> Preferences -> Key Bindings - User`.
+
+	Paste this in there `{ "keys": ["super+shift+m"], "command": "prompt_mind_sketch" }` (for Windows change `super` to `ctrl`)
+
+	Now you can use the plugin freely. Enjoy
 

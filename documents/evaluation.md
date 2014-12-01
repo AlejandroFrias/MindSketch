@@ -9,7 +9,9 @@ Extra bonus was learning about custom syntax highlighting for my language, makin
 
 ### What could be improved? For example, how could the user's experience be better? How might your implementation be simpler or more cohesive?
 
-The first thing that bugs me the most and is also the most minor, is that the custom syntax highlighing slows down Sublim Text to near freezing. Probably a lot of recursion going on. It wasn't written very efficiently. I get around it using TextMate which handles it a bit better.
+~~The first thing that bugs me the most and is also the most minor, is that the custom syntax highlighing slows down Sublim Text to near freezing. Probably a lot of recursion going on. It wasn't written very efficiently. I get around it using TextMate which handles it a bit better.~~ Fixed this, Yay.
+
+Optional Parser groups aren't supported the way I want. Right now I took them out. I'm having trouble keeping the spaces write for the Parser Objects when there are optional groups. I thought optional spaces in the regex would solve this, but then some Parsers were capturing more than I wanted them to.
 
 There are few more things I want. I want import statements to allow seperate files of Translator Objects to be easily put together. I think this will allow multiple people to collaborate on the same translation suite.
 
@@ -38,7 +40,7 @@ Now I mostly have the good kinds of difficulty: choosing which features to imple
 
 ### What's left to accomplish before the end of the project?
 
-I've mentioned some of the features I'd like. I think for this project, there is only one more feature I definately want to add. The import feature. I think that one feature is pivotal to allowing collaboration. There are a myriad of smaller tweaks that I will also probably implement. Things like allowing more flexibility in the Parser Objects, like ignoring case and ignoring apostrophes and punctuation. Basically, normal English sentences should be able to be entered and match more smoothly. I think an automatic layer that removes these types of things would be good. There's a couple of other TODO's smattered around the code with small tweaks and ideas.
+I've mentioned some of the features I'd like. I think for this project, there is only one more feature I definately want to add. The import feature. I think that one feature is pivotal to allowing collaboration. There are a myriad of smaller tweaks that I will also probably implement. Things like allowing more flexibility in the Parser Objects, like ignoring case and ignoring apostrophes and punctuation. Basically, normal English sentences should be able to be entered and match more smoothly, but so should less grammatically correct sentences and with the same Parser. Example, the same Parser Object should match `"I can't."` and `"i cant"`. I think an automatic layer that removes these types of things would be good. There's a couple of other TODO's smattered around the code with small tweaks and ideas.
 
 Not so much a feature, but more like support, I was thinking building a small library of Translator Objects for people to expand off of. It would make the learning curve easier to see many examples of what it could do.
 
