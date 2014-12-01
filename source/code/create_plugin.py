@@ -38,7 +38,7 @@ import os
 from pypeg2 import parse
 
 def main():
-	p = argparse.ArgumentParser (description="Converts MindSketch (.misk) file into a Sublime Text 3.")
+	p = argparse.ArgumentParser (description="Converts MindSketch (.misk) file into a Sublime Text 3 plugin.")
 	p.add_argument("file", help=".misk file of Translator Objects")
 	p.add_argument("output", help="file name to save plugin as", nargs="?")
 	args = p.parse_args()
@@ -46,7 +46,6 @@ def main():
 	if args.output is None:
 		sys.path.append(os.path.expanduser("~/Library/Application Support/Sublime Text 3/Packages/User"))
 		args.output = os.path.expanduser("~/Library/Application Support/Sublime Text 3/Packages/User/mind_sketch.py")
-		print(args.output)
 
 	print("Opening MindSketch file: " + args.file)
 	text = "COULD NOT OPEN FILE"
