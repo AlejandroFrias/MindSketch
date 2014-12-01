@@ -3,9 +3,9 @@
 MindSketch is a DSL (Domain Specific Language) for creating translations from English to code. At this stage, it is specifically geared towards creating a Sublime Text 3 plugin that accepts English commands and outputs code snippets. The dream is to one day be able to dictate code and have the messy worries about syntax for particular languages not be a hinderance to coding or learning to code. With everyone's collaboration, useful translation suites can be made that incoorporate the main ideas of coding and convert them into something useful
 
 ## Dependencies
-Sublime Text 3
-Python 2.7.x
-pip
+* Sublime Text 3
+* Python 2.7.x
+* pip
 
 ### Installing Sublime Text 3
 
