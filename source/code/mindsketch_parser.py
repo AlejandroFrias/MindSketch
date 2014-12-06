@@ -17,7 +17,7 @@ comment = "#", { all characters }, newline
 name = { all characters - ":" }, ":";
 
 group = "(", word, {"|", word }, ")", ["?"];
-variable = "$", var letter, { [ "_" ], var letter }
+variable = "$", var letter, { [ "_" ], var letter };
 
 regex = (group | word | variable ), { space, ( group | word - "PARSER END" | variable ) };
 
@@ -29,12 +29,16 @@ code snippet = { comment }, "CODE START:", space, language name, newline, code s
 
 translator = { comment }, name, { parser object }, { code snippet };
 
-grammar = { translator };
+folder = { all characters - "/" }
+relative_path = folder, { "/", folder }, ".misk"
+imports = "import", white space, relative_path
+
+grammar = { imports }, { translator };
 
 
 @author  Alejandro Frias
 @contact alejandro.frias@ymail.com
-@version 2014.11.26
+@version 2014.12.5
 """
 from __future__ import unicode_literals, print_function
 from pypeg2 import *
@@ -53,7 +57,12 @@ code_snippet = re.compile("(?:(?!CODE END).+)(?:\n(?:(?!CODE END).*))*")
 
 comment = re.compile("^#.*")
 
+relative_path = re.compile("[^/\s]+(/[^/\s]+)*\.misk")
+
 Symbol.regex = re.compile("[\s\w]+")
+
+class Import(str):
+	grammar = "import", relative_path, endl
 
 class Comment(str):
 	# Using contiguous to capture any whitespace after the '#'
@@ -91,4 +100,32 @@ class TranslatorObject(List):
 			  attr("code_snippets", maybe_some(CodeSnippet))
 
 class MindSketch(List):
-	grammar = some(TranslatorObject)
+	grammar = attr("imports", maybe_some(Import)), some(TranslatorObject)
+
+
+
+"""
+Recursivley parse the file and any files it imports, preserving order as it appends 
+all the translator objects into one master list.
+
+** Warning ** It does not detect cycles of references which could cause it to loop forever.
+
+@param misk_file A relative path to a misk_file to be parsed
+@return A list of all the parsed translator objects
+"""
+def recursive_parse(misk_file):
+	print("Opening: " + misk_file)
+	f = open(misk_file, "r")
+	text = f.read() 
+	f.close
+
+	print("Parsing: " + misk_file)
+	ast = parse(text, MindSketch, misk_file)
+
+	if len(ast.imports) == 0:
+		return ast
+
+	imports = [recursive_parse(t) for t in ast.imports]
+	tobjects = [tobject for misk in imports for tobject in misk]
+	tobjects.extend(ast)
+	return tobjects

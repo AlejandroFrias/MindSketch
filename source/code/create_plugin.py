@@ -3,18 +3,19 @@
 For help on usage: python create_plugin.py -h
 
 Convert a MindSketch (.misk) file into a Sublime Text 3 plugin.
-Does not work for Sublime Text 2 (without changing the python environment it uses to python3)
+Does not work for Sublime Text 2 (without changing the python environment it uses which is a hassle)
 
 Save the resulting file into your Packages/Users folder and add
 a binding for "prompt_mind_sketch".
 
 Instructions to create the plugin:
-1. Write a .misk file. For the example, calling it file.misk
-2. In Terminal type: 'python create_plugin.py file.misk mind_sketch.py'
-3. This created a plugin called 'mind_sketch.py'. Any name is fine as 
+1. Write a .misk file. For the example, calling it your_file.misk
+2. From the project's root directory, use the script as follows: './mindsketch.sh your_misk.file mindsketch.py'
+3. This created a plugin called 'mind_sketch.py' in the project's root directory. Any name is fine as 
    long as the extension is '.py'. Save the plugin into Packages/User folder
 
 Instructions for saving plugin to Sublime Text 3:
+0. Give no output file and it will save a plugin called 'mindsketch.py' to the correct location (OSX only). Otherwise:
 1. Get to Packages folder in menu 'Sublime Text -> Preferences -> Browse Packages'
 2. Find 'User' folder
 3. Save/drag the plugin there. (you may need to open up the file and save it to load the plugin)
@@ -43,22 +44,15 @@ def main():
 	p.add_argument("output", help="file name to save plugin as", nargs="?")
 	args = p.parse_args()
 
+	# Default location for output is the Packages -> User folder for Sublime Text 3
 	if args.output is None:
 		sys.path.append(os.path.expanduser("~/Library/Application Support/Sublime Text 3/Packages/User"))
 		args.output = os.path.expanduser("~/Library/Application Support/Sublime Text 3/Packages/User/mind_sketch.py")
 
-	print("Opening MindSketch file: " + args.file)
-	text = "COULD NOT OPEN FILE"
-	
-	f = open(args.file, "r")
-	text = f.read() 
-	f.close
+	# Parse the file and get the AST (which is a list of Translator Objects)
+	ast = mindsketch_parser.recursive_parse(args.file)
 
-	# Parse the MindSketch file into an AST
-	# Any Syntax errors will happen here
-	print("Parsing: " + args.file)
-	ast = parse(text, mindsketch_parser.MindSketch, args.file)
-
+	# Organize the AST and validate it (check for ValueErrors)
 	translator_objects = TranslatorObjectList(ast)
 	translator_objects.validate()
 

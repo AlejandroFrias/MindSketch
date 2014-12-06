@@ -1,48 +1,24 @@
 # Comments about the Translator ojbect
 Plus:
 
-# comments for each parser
-PARSER START
-plus
-PARSER END
-
 # and each code
 CODE START: python
  + $0
 CODE END
 
 Minus:
-PARSER START
-minus
-PARSER END
 
 CODE START: python
  - $0
 CODE END
 
-
 String:
-PARSER START
-string $STRING
-PARSER END
 
 CODE START: python
 "$STRING"$0
 CODE END
 
 Basic Runnable Program:
-
-PARSER START
-(make|write) a $NAME program
-PARSER END
-
-PARSER START
-(begin|build|make|write|create) $NAME program
-PARSER END
-
-PARSER START
-(make|write|build) a program called $NAME
-PARSER END
 
 CODE START: python
 import sys
@@ -67,14 +43,6 @@ CODE END
 
 Basic class:
 
-PARSER START
-(generate|make|create) class $NAME
-PARSER END
-
-PARSER START
-$NAME is a class
-PARSER END
-
 # Even the the Code Snippets can get
 CODE START: java
 class ${1:$NAME} {
@@ -90,11 +58,8 @@ class ${1:$NAME}:
 $0
 CODE END
 
-Basic reader:
 
-PARSER START
-reader for $FILE named $NAME
-PARSER END
+Basic reader:
 
 CODE START: java
 BufferedReader ${1:$NAME} = new BufferedReader(new FileReader(${2:$FILE}));
@@ -102,14 +67,6 @@ $0
 CODE END
 
 Basic for loop:
-
-PARSER START
-loop from $START to $END
-PARSER END
-
-PARSER START
-loop (until|to) $END (starting at|from) $START
-PARSER END
 
 CODE START: java
 for(int i = ${1:$START}; i < ${2:$END}; i++) {
@@ -126,10 +83,6 @@ CODE END
 
 Print:
 
-PARSER START
-(print|say) $MESSAGE
-PARSER END
-
 CODE START: java
 System.out.println(${1:"$MESSAGE"});
 $0
@@ -142,27 +95,11 @@ CODE END
 
 System arguments:
 
-PARSER START
-(system argument|system arg|arg|argument) number $POS
-PARSER END
-
-PARSER START
-get the $POS (system argument|arg|argument)
-PARSER END
-
 CODE START: python
 sys.argv[${1:$POS}]$0
 CODE END
 
 Function Define:
-
-PARSER START
-(define|create) function $FUN
-PARSER END
-
-PARSER START
-function $FUN
-PARSER END
 
 CODE START: python
 def $FUN($1):
@@ -171,10 +108,6 @@ $0
 CODE END
 
 Function Call:
-
-PARSER START
-call $FUNCTION (with|on) $VARS
-PARSER END
 
 CODE START: java
 $FUNCTION(${1:$VARS})$0
@@ -185,14 +118,6 @@ $FUNCTION(${1:$VARS})$0
 CODE END
 
 If else:
-
-PARSER START
-if $CONDITION do $ACTION1 (else|otherwise) do $ACTION2
-PARSER END
-
-PARSER START
-do $ACTION1 if $CONDITION otherwise do $ACTION2
-PARSER END
 
 CODE START: python
 if ${1:$CONDITION}:
@@ -213,14 +138,6 @@ CODE END
 
 If Condition:
 
-PARSER START
-if $CONDITION do $ACTION
-PARSER END
-
-PARSER START
-do $ACTION if $CONDITION
-PARSER END
-
 CODE START: python
 if ${1:$CONDITION}:
 	${2:$ACTION}
@@ -236,10 +153,6 @@ CODE END
 
 Return:
 
-PARSER START
-return $THING
-PARSER END
-
 CODE START: python
 return ${1:$THING}
 $0
@@ -252,10 +165,6 @@ CODE END
 
 Less than:
 
-PARSER START
-$FIRST_THING (is less than|less than) $SECOND_THING
-PARSER END
-
 CODE START: python
 ${1:$FIRST_THING} < ${2:$SECOND_THING}$0
 CODE END
@@ -266,10 +175,6 @@ CODE END
 
 Greater than:
 
-PARSER START
-$FIRST_THING (is greater than|greater than) $SECOND_THING
-PARSER END
-
 CODE START: python
 ${1:$FIRST_THING} > ${2:$SECOND_THING}$0
 CODE END
@@ -279,10 +184,6 @@ ${1:$FIRST_THING} > ${2:$SECOND_THING}$0
 CODE END
 
 Variable assignment:
-
-PARSER START
-$NAME (equals|is) $VALUE
-PARSER END
 
 CODE START: python
 $NAME = ${1:$VALUE}

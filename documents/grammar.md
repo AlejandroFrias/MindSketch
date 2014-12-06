@@ -12,7 +12,7 @@ comment = "#", { all characters }, newline
 name = { all characters - ":" }, ":";
 
 group = "(", word, {"|", word }, ")", ["?"];
-variable = "$", var letter, { [ "_" ], var letter }
+variable = "$", var letter, { [ "_" ], var letter };
 
 regex = (group | word | variable ), { space, ( group | word - "PARSER END" | variable ) };
 
@@ -24,5 +24,9 @@ code snippet = { comment }, "CODE START:", space, language name, newline, code s
 
 translator = { comment }, name, { parser object }, { code snippet };
 
-grammar = { translator };
+folder = { all characters - "/" }
+relative_path = folder, { "/", folder }, ".misk"
+imports = "import", white space, relative_path
+
+grammar = { imports }, { translator };
 ```

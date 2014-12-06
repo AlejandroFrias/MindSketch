@@ -1,0 +1,145 @@
+import examples/code_snippets.misk
+
+# Comments about the Translator ojbect
+Plus:
+
+# comments for each parser
+PARSER START
+plus
+PARSER END
+
+Minus:
+PARSER START
+minus
+PARSER END
+
+
+String:
+PARSER START
+string $STRING
+PARSER END
+
+
+Basic Runnable Program:
+
+PARSER START
+(make|write) a $NAME program
+PARSER END
+
+PARSER START
+(begin|build|make|write|create) $NAME program
+PARSER END
+
+PARSER START
+(make|write|build) a program called $NAME
+PARSER END
+
+
+Basic class:
+
+PARSER START
+(generate|make|create) class $NAME
+PARSER END
+
+PARSER START
+$NAME is a class
+PARSER END
+
+
+Basic reader:
+
+PARSER START
+reader for $FILE named $NAME
+PARSER END
+
+
+Basic for loop:
+
+PARSER START
+loop from $START to $END
+PARSER END
+
+PARSER START
+loop (until|to) $END (starting at|from) $START
+PARSER END
+
+Print:
+
+PARSER START
+(print|say) $MESSAGE
+PARSER END
+
+System arguments:
+
+PARSER START
+(system argument|system arg|arg|argument) number $POS
+PARSER END
+
+PARSER START
+get the $POS (system argument|arg|argument)
+PARSER END
+
+Function Define:
+
+PARSER START
+(define|create) function $FUN
+PARSER END
+
+PARSER START
+function $FUN
+PARSER END
+
+Function Call:
+
+PARSER START
+call $FUNCTION (with|on) $VARS
+PARSER END
+
+
+If else:
+
+PARSER START
+if $CONDITION do $ACTION1 (else|otherwise) do $ACTION2
+PARSER END
+
+PARSER START
+do $ACTION1 if $CONDITION otherwise do $ACTION2
+PARSER END
+
+
+If Condition:
+
+PARSER START
+if $CONDITION do $ACTION
+PARSER END
+
+PARSER START
+do $ACTION if $CONDITION
+PARSER END
+
+
+Return:
+
+PARSER START
+return $THING
+PARSER END
+
+
+Less than:
+
+PARSER START
+$FIRST_THING (is less than|less than) $SECOND_THING
+PARSER END
+
+
+Greater than:
+
+PARSER START
+$FIRST_THING (is greater than|greater than) $SECOND_THING
+PARSER END
+
+Variable assignment:
+
+PARSER START
+$NAME (equals|is) $VALUE
+PARSER END

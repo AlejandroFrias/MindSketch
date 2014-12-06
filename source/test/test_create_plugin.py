@@ -9,8 +9,7 @@ of the grammar.
 """
 import unittest
 from source.code.create_plugin import TranslatorObjectList
-from pypeg2 import parse
-from source.code.mindsketch_parser import MindSketch
+from source.code.mindsketch_parser import recursive_parse
 
 class TestCreatePlugin(unittest.TestCase):
 	def setUp(self):
@@ -45,10 +44,7 @@ code_snippets.add('Title should handle spaces and Numbers23', 'python', \"\"\"fo
 	parse and generate plugin code accordingly
 	"""
 	def test_proper_syntax(self):
-		with open(self.proper_syntax) as f:
-			text = f.read()
-
-		ast = parse(text, MindSketch)
+		ast = recursive_parse(self.proper_syntax)
 		translator_objects = TranslatorObjectList(ast)
 		translator_objects.validate()
 		print("".join(translator_objects.output_lines()))
@@ -60,10 +56,7 @@ code_snippets.add('Title should handle spaces and Numbers23', 'python', \"\"\"fo
 	Expect a ValueError when the parsers don't use the same set of variables
 	"""
 	def test_mismatch_variables(self):
-		with open(self.mismatch_variables) as f:
-			text = f.read()
-
-		ast = parse(text, MindSketch)
+		ast = recursive_parse(self.mismatch_variables)
 		self.assertRaises(ValueError, TranslatorObjectList, ast)
 
 	"""
@@ -76,10 +69,7 @@ code_snippets.add('Title should handle spaces and Numbers23', 'python', \"\"\"fo
 	      work fine. Then this could be a warning instead...
 	"""
 	def test_missing_variables(self):
-		with open(self.missing_variables) as f:
-			text = f.read()
-
-		ast = parse(text, MindSketch)
+		ast = recursive_parse(self.missing_variables)
 		translator_objects = TranslatorObjectList(ast)
 		self.assertRaises(ValueError, TranslatorObjectList.validate, translator_objects)
 
@@ -93,9 +83,6 @@ code_snippets.add('Title should handle spaces and Numbers23', 'python', \"\"\"fo
 		  Again, maybe move this to a warning
 	"""
 	def test_no_parsers(self):
-		with open(self.no_parsers) as f:
-			text = f.read()
-
-		ast = parse(text, MindSketch)
+		ast = recursive_parse(self.no_parsers)
 		translator_objects = TranslatorObjectList(ast)
 		self.assertRaises(ValueError, TranslatorObjectList.validate, translator_objects)
