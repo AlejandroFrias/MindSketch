@@ -1,0 +1,14 @@
+import parsers_only.misk
+
+Loop:
+
+CODE START: java
+for (int i = $START; i < $END; i++) {
+	$0
+}
+CODE END
+
+CODE START: python
+for x in xrange($START, $END):
+	${0:pass}
+CODE END

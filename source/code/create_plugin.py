@@ -46,7 +46,6 @@ def main():
 
 	# Default location for output is the Packages -> User folder for Sublime Text 3
 	if args.output is None:
-		sys.path.append(os.path.expanduser("~/Library/Application Support/Sublime Text 3/Packages/User"))
 		args.output = os.path.expanduser("~/Library/Application Support/Sublime Text 3/Packages/User/mind_sketch.py")
 
 	# Parse the file and get the AST (which is a list of Translator Objects)

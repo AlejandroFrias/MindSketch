@@ -43,6 +43,8 @@ grammar = { imports }, { translator };
 from __future__ import unicode_literals, print_function
 from pypeg2 import *
 from pypeg2.xmlast import thing2xml
+import os
+import sys
 
 # Includes words with numerals, capital letters and one apostrophe
 lower_case_word = re.compile("[a-z]+") # re.compile("(?!PARSER END)(\w+'\w*|'\w+|\w+)")
@@ -100,7 +102,7 @@ class TranslatorObject(List):
 			  attr("code_snippets", maybe_some(CodeSnippet))
 
 class MindSketch(List):
-	grammar = attr("imports", maybe_some(Import)), some(TranslatorObject)
+	grammar = attr("imports", maybe_some(Import)), maybe_some(TranslatorObject)
 
 
 
@@ -111,13 +113,19 @@ all the translator objects into one master list.
 ** Warning ** It does not detect cycles of references which could cause it to loop forever.
 
 @param misk_file A relative path to a misk_file to be parsed
+@param directory A relative path of the directory of misk_file used to allow relative paths of imports
 @return A list of all the parsed translator objects
 """
-def recursive_parse(misk_file):
+def recursive_parse(misk_file, directory=None):
+	
+	if directory is not None:
+		print("Adding to path: " + directory)
+		if os.path.abspath(os.path.join(misk_file, os.pardir)) != os.path.abspath(directory):
+			misk_file = directory + "/" + misk_file
+
 	print("Opening: " + misk_file)
-	f = open(misk_file, "r")
-	text = f.read() 
-	f.close
+	with open(misk_file, "r") as f:
+		text = f.read() 
 
 	print("Parsing: " + misk_file)
 	ast = parse(text, MindSketch, misk_file)
@@ -125,7 +133,9 @@ def recursive_parse(misk_file):
 	if len(ast.imports) == 0:
 		return ast
 
-	imports = [recursive_parse(t) for t in ast.imports]
+	parent_directory = os.path.abspath(os.path.join(misk_file, os.pardir))
+
+	imports = [recursive_parse(t, parent_directory) for t in ast.imports]
 	tobjects = [tobject for misk in imports for tobject in misk]
 	tobjects.extend(ast)
 	return tobjects

@@ -1,0 +1,11 @@
+import code_snippets_only.misk
+
+Loop:
+
+PARSER START
+loop from $START to $END
+PARSER END
+
+PARSER START
+loop to $END from $START
+PARSER END
