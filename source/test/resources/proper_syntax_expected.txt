@@ -1,0 +1,20 @@
+# Translator Object: Title should handle spaces and Numbers23
+# Comments for the Translator Object
+#    Should handle multiple lines and preserve spacing
+# An be parsable even with lines seperating them
+# Multiple Translator Objects should be able to be parsed
+# And they can have the same name without overwriting parsers
+# But it could overwrite code snippets or add to them depending on 
+# the language of the snippet
+
+# Parser Objects should get comments
+parsers.add('Title should handle spaces and Numbers23', (u'words', u'(and)', u'(some groups|groups of a kind|groups)', u'to', u'be', u'parsed', u'with', u'(?P<START>.*?)', u'and', u'(?P<END>.*?)', u'variables',))
+parsers.add('Title should handle spaces and Numbers23', (u'whatever', u'(i|do)', u'(?P<START>.*?)', u'and', u'(?P<END>.*?)',))
+# As well as Code Snippets
+#    And the multi-line thing
+code_snippets.add('Title should handle spaces and Numbers23', 'java', """for(int i = ${{1:{0[START]}}}; i < ${{2:{0[END]}}}; i++) {{
+    $0
+}}""")
+code_snippets.add('Title should handle spaces and Numbers23', 'python', """for x in xrange(${{1:{0[START]}}}, ${{2:{0[END]}}}):
+    ${{0:pass}}""")
+

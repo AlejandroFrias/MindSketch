@@ -1,0 +1,10 @@
+# Translator Object: Loop
+
+parsers.add('Loop', (u'loop', u'from', u'(?P<START>.*?)', u'to', u'(?P<END>.*?)',))
+parsers.add('Loop', (u'loop', u'to', u'(?P<END>.*?)', u'from', u'(?P<START>.*?)',))
+code_snippets.add('Loop', 'java', """for (int i = {0[START]}; i < {0[END]}; i++) {{
+	$0
+}}""")
+code_snippets.add('Loop', 'python', """for x in xrange({0[START]}, {0[END]}):
+	${{0:pass}}""")
+

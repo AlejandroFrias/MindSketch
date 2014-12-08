@@ -8,6 +8,7 @@ of the grammar.
 @version 2014.11.26
 """
 import unittest
+import gc
 from source.code.create_plugin import TranslatorObjectList
 from source.code.mindsketch_parser import recursive_parse
 
@@ -24,6 +25,8 @@ class TestCreatePlugin(unittest.TestCase):
 		self.imports.append("source/test/resources/import_both.misk")
 		self.imports.append("source/test/resources/import_snippets.misk")
 		self.imports.append("source/test/import_relative.misk")
+		self.imports.append("source/test/resources/import_cycle_snippets.misk")
+		self.imports.append("source/test/resources/import_cycle_parsers.misk")
 		
 		with open("source/test/resources/proper_syntax_expected.txt") as f:
 			self.proper_syntax_expected = f.read()
@@ -81,7 +84,8 @@ class TestCreatePlugin(unittest.TestCase):
 
 	Imports use relative paths, preserve ordering, and are recursively parsed.
 
-	TODO: Do some smart stuff to avoid multiple imports of the same file and avoid cycles of imports.
+	TODO: Figure out why any individual test works, but not all of them at the same time... 
+	Maybe something to do with garbage collection
 	"""
 	def test_imports(self):
 		for importing_misk in self.imports:
@@ -92,3 +96,4 @@ class TestCreatePlugin(unittest.TestCase):
 			print("****************")
 			print(self.import_expected)
 			self.assertEqual("".join(translator_objects.output_lines()), self.import_expected)
+

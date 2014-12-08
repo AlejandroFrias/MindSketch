@@ -110,18 +110,24 @@ class MindSketch(List):
 Recursivley parse the file and any files it imports, preserving order as it appends 
 all the translator objects into one master list.
 
-** Warning ** It does not detect cycles of references which could cause it to loop forever.
-
 @param misk_file A relative path to a misk_file to be parsed
 @param directory A relative path of the directory of misk_file used to allow relative paths of imports
 @return A list of all the parsed translator objects
 """
-def recursive_parse(misk_file, directory=None):
+def recursive_parse(misk_file, current_directory=None, already_imported=set()):
 	
-	if directory is not None:
-		print("Adding to path: " + directory)
-		if os.path.abspath(os.path.join(misk_file, os.pardir)) != os.path.abspath(directory):
-			misk_file = directory + "/" + misk_file
+
+	# This allows relative path names even in imports of imports.
+	if current_directory is not None:
+		print("Updating Current Directory to: " + current_directory)
+		if os.path.abspath(os.path.join(misk_file, os.pardir)) != os.path.abspath(current_directory):
+			misk_file = current_directory + "/" + misk_file
+
+	# Prevents cycles and multiple imports
+	if os.path.abspath(misk_file) in already_imported:
+		print("Already Imported: " + misk_file)
+		print("Prev Imports: " + repr(already_imported))
+		return []
 
 	print("Opening: " + misk_file)
 	with open(misk_file, "r") as f:
@@ -133,9 +139,10 @@ def recursive_parse(misk_file, directory=None):
 	if len(ast.imports) == 0:
 		return ast
 
+	already_imported.add(os.path.abspath(misk_file))
 	parent_directory = os.path.abspath(os.path.join(misk_file, os.pardir))
 
-	imports = [recursive_parse(t, parent_directory) for t in ast.imports]
+	imports = [recursive_parse(t, parent_directory, already_imported) for t in ast.imports]
 	tobjects = [tobject for misk in imports for tobject in misk]
 	tobjects.extend(ast)
 	return tobjects
