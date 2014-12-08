@@ -89,7 +89,7 @@ class TestCreatePlugin(unittest.TestCase):
 	"""
 	def test_imports(self):
 		for importing_misk in self.imports:
-			ast = recursive_parse(importing_misk, None, set())
+			ast = recursive_parse(importing_misk)
 			translator_objects = TranslatorObjectList(ast)
 			translator_objects.validate()
 			print("".join(translator_objects.output_lines()))

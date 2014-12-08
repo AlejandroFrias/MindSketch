@@ -114,8 +114,10 @@ all the translator objects into one master list.
 @param directory A relative path of the directory of misk_file used to allow relative paths of imports
 @return A list of all the parsed translator objects
 """
-def recursive_parse(misk_file, current_directory=None, already_imported=set()):
+def recursive_parse(misk_file, current_directory=None, already_imported=None):
 	
+	if already_imported is None:
+		already_imported = set()
 
 	# This allows relative path names even in imports of imports.
 	if current_directory is not None:
