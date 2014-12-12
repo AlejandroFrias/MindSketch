@@ -27,9 +27,13 @@ MindSketch uses [pip](https://pypi.python.org/pypi/pip)  to manage the various P
 
 	`git clone https://github.com/AlejandroFrias/MindSketch.git`
 
+	![git clone](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/master/documents/resources/git_clone.png)
+
 2. In the root directory of the project, run the `bootstrap.sh` script (may require use of `sudo`):
 
 	`./bootstrap.sh` (if it says permission denied, you may need to make it an executable with `chmod a+x bootstrap.sh` or run it with `sh bootstrap.sh`
+
+	![bootstrap](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/master/documents/resources/bootstrap.png)
 
 ## Usage Instructions
 
