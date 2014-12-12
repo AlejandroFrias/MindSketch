@@ -1,5 +1,9 @@
 # MindSketch
 
+This is possible with MindSketch!
+
+[![Wholy Cow](http://img.youtube.com/vi/qDdAX9DUMXg/0.jpg)](http://youtu.be/qDdAX9DUMXg)
+
 Have you ever wished you could dictate your code? Or maybe you would like to write down psuedo code that actually translates into usable code without having to remember every syntax detail of whatever particular language you are writing in. Maybe you're a teacher and want to provide a way of coding that involves just the concepts and none of the language specific syntax features? Well MindSketch is a language designed to get us one step closer to being able to dictate in plain English and have that convert to proper code and code navigation.
 
 I think I've convinced you of the need for such a final goal. It benefits everyone who wants to program. It helps experts who want to dictate. It helps those with injuries or blindness who want better accessibility features for handsfree coding. It helps those trying to learn or teach coding who work better in their native language than that of the computer. So what exactly does MindSketch do towards this goal?
