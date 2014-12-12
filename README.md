@@ -2,6 +2,10 @@
 
 MindSketch is a DSL (Domain Specific Language) for creating translations from English to code. At this stage, it is specifically geared towards creating a Sublime Text 3 plugin that accepts English commands and outputs code snippets or executes a Sublime command. The dream is to one day be able to dictate code and have the messy worries about syntax for particular languages not be a hinderance to coding or learning to code. With everyone's collaboration, useful translation suites can be made that incoorporate the main ideas of coding and convert them into something useful!
 
+See an example in actions:
+
+[![Example Use](http://img.youtube.com/vi/mTWiyFqg1D0/0.jpg)](http://www.youtube.com/watch?v=mTWiyFqg1D0)
+
 ## Dependencies
 Make sure you have the following installed on your computer. I apologize that I haven't made this project very accessible to non-OSX.
 
