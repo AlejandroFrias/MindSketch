@@ -107,7 +107,6 @@ For the above Translator Object, the input `loop from 1 to 10` would produce `fo
 
 ![Sublime View](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/master/documents/resources/blank_sublime.png)
 
-![Language List](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/master/documents/resources/language_list.png)
 
 #### Commands
 
