@@ -101,7 +101,7 @@ PARSER END
 ```
 This accepts `for loop from 1 to 10` as well as `loop from 1 to 10`, assigning variables `$START` and `$END` to `1` and `10`, respectively.
 
-Code Snippets are Sublime style snippets. Check out their API [here](http://sublimetext.info/docs/en/extensibility/snippets.html). They use all the same tab stops and placholder syntax as the Sublime snippet language. They also substitute in the values grabbed from the user input and assigned to the variables. Very importantly, you can have only one Code Snippet for each language and one default one. All are optional.
+Code Snippets are Sublime style snippets. Check out their API [here](http://docs.sublimetext.info/en/latest/extensibility/snippets.html). They use all the same tab stops and placholder syntax as the Sublime snippet language. They also substitute in the values grabbed from the user input and assigned to the variables. Very importantly, you can have only one Code Snippet for each language and one default one. All are optional.
 
 For the above Translator Object, the input `loop from 1 to 10` would produce `for x in xrange(1, 10)` with the cursor on the next line indented to the `$0`. It will only do this inside a python file though. The bottom right corner of the sublime window shows the file type recognized and it is a drop down menu that can be changed.
 
