@@ -53,6 +53,8 @@ MindSketch uses [pip](https://pypi.python.org/pypi/pip)  to manage the various P
   
   `./mind_sketch.sh <MindSketch file> [<output file>]`
 
+	![Create Plugin](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/master/documents/resources/create_plugin.png)
+
   For help on usage: `./mind_sketch.sh -h`
   
   Sample Usage: `.\mind_sketch.sh examples\example.misk`. This will create `mind_sketch.py` that looks identical to `examples\example.py` and save it save it to the User Package for Sublime Text 3 (which will load the plugin)
