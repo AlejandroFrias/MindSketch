@@ -63,11 +63,11 @@ MindSketch uses [pip](https://pypi.python.org/pypi/pip)  to manage the various P
 
 	Save the file to the `User` folder.
 
-	![User Folder](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/tree/master/documents/resources/user_folder.png)
+	![User Folder](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/master/documents/resources/user_folder.png)
 	
 	In Sublime ``` ctrl+` ``` opens the Sublime console. Error messages can show up here for incorrect use of the plugin.
 
-	![Sublime console](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/tree/master/documents/resources/sublime_console.png)
+	![Sublime console](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/master/documents/resources/sublime_console.png)
 
 ## Features
 
@@ -105,9 +105,9 @@ Code Snippets are Sublime style snippets. Check out their API [here](http://subl
 
 For the above Translator Object, the input `loop from 1 to 10` would produce `for x in xrange(1, 10)` with the cursor on the next line indented to the `$0`. It will only do this inside a python file though. The bottom right corner of the sublime window shows the file type recognized and it is a drop down menu that can be changed.
 
-![Sublime View](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/tree/master/documents/resources/blank_sublime.png)
+![Sublime View](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/master/documents/resources/blank_sublime.png)
 
-![Language List](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/tree/master/documents/resources/language_list.png)
+![Language List](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/master/documents/resources/language_list.png)
 
 #### Commands
 
