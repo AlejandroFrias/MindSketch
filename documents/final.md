@@ -4,11 +4,13 @@ Have you ever wished you could dictate your code? Or maybe you would like to wri
 
 I think I've convinced you of the need for such a final goal. It benefits everyone who wants to program. It helps experts who want to dictate. It helps those with injuries or blindness who want better accessibility features for handsfree coding. It helps those trying to learn or teach coding who work better in their native language than that of the computer. So what exactly does MindSketch do towards this goal?
 
-MindSketch is a simple language for creating translations from English to code snippets. Currently this project can compile a MindSketch file into a Sublime Text 3 plugin. The plugin accepts English sentences as input and outputs the corresponding code snippet as defined in the MindSketch file and for the language currently being coded in. To get to dictation all that is needed is a voice-to-text layer ontop of it and probably a few code naviagation commands.
+MindSketch is a simple language for creating translations from English to code snippets. Currently this language compiles to a Sublime Text 3 plugin. The plugin accepts English sentences as input and outputs the corresponding code snippets or runs Sublime commands for navigation in the code. Using the Speech-to-Text accessibility feature built into your computer, you can get a taste of what it will be like to dictate your code.
 
-Experts in various languages can collaborate on creating code snippets that can be imported by others. Those who are not experts but want to create commands can make just the Parser Objects (the part that matches English sentences). The parts can be combined using import statements. It is meant as a collaborative project for creating English-to-Code translations.
+Experts in various languages can collaborate on creating Translation suites for various languages. Those who are not experts can help create the English statements that should be used. The parts can be combined using import statements. It is meant as a collaborative project for creating English-to-Code translations.
 
-To use it please follow the instructions on the (README)[https://github.com/AlejandroFrias/MindSketch/blob/master/README.md] for installation and use.
+The Translation suites don't have to be general purpose. I think this language has a lot of power for making psuedo DSL's in English. If the code snippets are more involved and more conventions are enforced on the user of the plugin, it can save them a lot of time. The possibilities are endless.
+
+Please follow the instructions on the [README](https://github.com/AlejandroFrias/MindSketch/blob/master/README.md) for installation and use (there is also a tutorial).
 
 ## Design of MindSketch
 
@@ -126,22 +128,9 @@ The (plugin template)[https://github.com/AlejandroFrias/MindSketch/blob/master/s
 
 ### How close to the Dream?
 
-The dream is dictating code. So I'm pretty far from the dream. MindSketch still needs a voice-to-text layer, code navigation commands that understand scope, a lot of collaboration on making usefule translation suites, probably an online database and frontend for the translation suites, and a myriad of other implementation details and design choices to add these things.
+The dream is dictating code. With use of the accessibility Speech-to-Text software that comes with most OS's, we can get a taste of that dream. MindSketch will still need a better voice-to-text layer than that. Since MindSketch can bind to any plugin commands in Sublime, we just need to develop some code navigation commands that understand scope. The project is intended to allow a lot of collaboration on making usefule translation suites and usefule cammands. To assist in that I'd like to make an online database and frontend for the translation suites and commands.
 
-But, it is a working proof of concept prototype. It is easily installed and used. It may not be particularly useful, since using Sublime Snippets directly is probably faster. That's ok, though. The important part was writing a language that allows collaboration on translations.
+MindSketch is a working proof-of-concept prototype. It is easily installed and used. It may not be particularly useful, since using Sublime Snippets directly is probably faster. That's ok, though. The important part was writing a language that allows collaboration on translations.
 
-I supplied one interesting way tackle the problem of recursive decent parsing of plain English. I just don't recurse. If the user inputs `if x less than 3 do return 1 otherwise return call to fib on num minus 1 plus call to fib on num minus 2`, Only the if statement is recognized and the rest of the pieces are just inserted as is in the various fields of the code snippet. Then with the use of tab stops, the user can navigate to each section and use the plugin again to devlop it. The basic idea is that the user decides where the recursive parsing of their own sentence occurs. THe plugin isn't parsing a whole language.
+I supplied one interesting way to tackle the problem of recursive decent parsing of plain English. I just don't recurse. If the user inputs `if x less than 3 do return 1 otherwise return call to fib on num minus 1 plus call to fib on num minus 2`, Only the if statement is recognized and the rest of the pieces are just inserted as is in the various fields of the code snippet. Then with the use of tab stops, the user can navigate to each section and use the plugin again to parse the various sections. The basic idea is that the user decides where the recursive parsing of their own sentence occurs. The plugin isn't parsing a whole language.
 
-
-
-### TODO / Future Work
-
-I think a voice-to-text layer will make sense to implement sooner rather than later. Since it is a problem being worked on by many, the layer will likely be 3rd party. Given that, I won't have control over what kinds of words are made by the software. It would be good to know that since it will modify how the Parser Objects work.
-
-A short cut for reusing selected text as the input for the MindSketch plugin could streamline the use. Then longer sentences could be types without worry of having to retype each section.
-
-Commands for code navigation. For example, `next field` or `previous field` that are essentially `tab` or `shift+tab`, respectively, for navigating between field without the direct use of the keyboard. Other movement commands could be added that move within scopes of things in the view. Like a `go to method $NAME` command. Go to commands exist in Sublime Text and many other text editors/IDEs. So all that needs to be done is a modification to the MindSketch language to allow use of these features through the Translator Objects. That will require some refactoring, but it seems doable. But it is not usable in any practical way until the voice-to-text layer is in place.
-
-Optional Parser groups aren't supported the way I want. Right now I took them out. I'm having trouble keeping the spaces right for the Parser Objects when there are optional groups. I thought optional spaces in the regex would solve this, but then some Parsers were capturing more than I wanted them to. I'm not sure this is a necessary feature. It allows for condensing Parser Objects. Right now the same functionailty is posible with more Parsre Objects.
-
-Eventually it would be nice to decouple MindSketch from Sublime, so that plugins for more than one text editor can use the same parser and MindSketch language. Right now the Code Snippets and even the Parser Objects are very closely related to Sublime Text and python. 
