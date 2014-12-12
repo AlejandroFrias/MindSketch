@@ -32,7 +32,7 @@ To assist users in writing these files, syntax highlighting is available. The RE
 
 Translator Objects are written in `.misk` files. They follow the [MindSketch grammar](https://github.com/AlejandroFrias/MindSketch/blob/master/documents/grammar.md).
 
-'''
+```
 # This is a Translator Object named 'For loop'
 For loop:
 
@@ -49,16 +49,17 @@ CODE START: python
 for ${1:x} in xrange(${2:$START}, ${3:$END}):
 	${0:pass}
 CODE END
-'''
+```
 
 Every declaration of a Translator Object starts with its name. When the same name is used again it just adds the extra Parser Objects and Code Snippets to the same Translator Objet and overrides the Code Snippets for the same language. This means some `.misk` files can be just Parser Objects and others just Code Snippets to allow for switching out translations. An example of this switch can be seen in (code_snippets.misk)[https://github.com/AlejandroFrias/MindSketch/blob/master/examples/code_snippets.misk] and (parser.misk)[https://github.com/AlejandroFrias/MindSketch/blob/master/examples/parsers.misk]. As you can see in (parser.misk)[https://github.com/AlejandroFrias/MindSketch/blob/master/examples/parsers.misk], an `import` statement can be used to compose multiple MindSketch files.
 
 ##### Parser Objects
 
-'''
+```
 PARSER START
 (for loop|loop) from $START to $END
 PARSER END
+```
 
 Parser objects are very simple. It's all lower case words. Groups with choices can be used too, like `(for loop|loop)` which signifies that `for loop` or `loop` are acceptible inputs there. Variables are all caps and start with a `$`. The contrast makes it easy to read which helps make them easier to write and modify. The `$` makes it easier to implement and thereby give useful error messages, like when Parser Objects for the same Translator Object don't use the same set of variables.
 
