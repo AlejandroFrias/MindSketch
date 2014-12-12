@@ -2,7 +2,7 @@
 
 This is possible with MindSketch!
 
-[![Wholy Cow](http://img.youtube.com/vi/qDdAX9DUMXg/0.jpg)](http://youtu.be/qDdAX9DUMXg)
+[![Wholy Cow](http://img.youtube.com/vi/mTWiyFqg1D0/0.jpg)](http://youtu.be/mTWiyFqg1D0)
 
 Have you ever wished you could dictate your code? Or maybe you would like to write down psuedo code that actually translates into usable code without having to remember every syntax detail of whatever particular language you are writing in. Maybe you're a teacher and want to provide a way of coding that involves just the concepts and none of the language specific syntax features? Well MindSketch is a language designed to get us one step closer to being able to dictate in plain English and have that convert to proper code and code navigation.
 
