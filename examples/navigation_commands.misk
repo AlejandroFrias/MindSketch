@@ -1,0 +1,35 @@
+COMMAND: next_field
+(next|ok|okay|continue)
+COMMAND END
+
+COMMAND: prev_field
+(back|prev|no|go back)
+COMMAND END
+
+COMMAND: undo
+(undo|oops)
+COMMAND END
+
+COMMAND: redo
+(redo|undo undo|undo that undo)
+COMMAND END
+
+COMMAND: sort_lines
+(sort|sort lines)
+COMMAND END
+
+COMMAND: sort_selection
+sort (sel|selection)
+COMMAND END
+
+COMMAND: convert_to_camel
+(camel|covert to camel|camel case|covert to camel case)
+COMMAND END
+
+COMMAND: convert_to_pascal
+(pascal|covert to pascal|pascal case|covert to pascal case)
+COMMAND END
+
+COMMAND: convert_to_snake
+(snake|covert to snake|snake case|covert to snake case)
+COMMAND END

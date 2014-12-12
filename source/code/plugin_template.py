@@ -19,8 +19,14 @@ class PromptMindSketchCommand(sublime_plugin.WindowCommand):
 
 	def on_done(self, text):
 		try:
-			command = text
+			command = text.lower()
 			if self.window.active_view():
+				# First check if it is a navigation comand
+				(name, m) = commands.match(command)
+				if m:
+					print("running command: " + name)
+					self.window.run_command(name)
+					return
 				self.window.active_view().run_command("mind_sketch", {"command": command} )
 		except ValueError:
 			pass
@@ -34,13 +40,20 @@ class MindSketchCommand(sublime_plugin.TextCommand):
 		language = re.match("[a-z]+\.([^ ]+).*", self.view.scope_name(self.view.sel()[0].begin())).group(1)
 		print("language: " + language)
 
+		if command == "reparse" or command == "parse":
+			regions = [region for region in self.view.sel()]
+			for region in regions[::-1]:
+				self.view.run_command("mind_sketch", { "command": self.view.substr(region) })
+			return
+
+
 		# Attempt to match the command to one of the parsers,
 		# getting the name of the Translator Object in the process
 		# as well as the Match object
 		(name, m) = parsers.match(command)
 
 		# Exit out if the command didn't match anything
-		if not(m):
+		if not m:
 			print("Command: '" + command + "' did not match any Translator Objects")
 			insert_code(self, edit, command)
 			return
@@ -52,6 +65,9 @@ class MindSketchCommand(sublime_plugin.TextCommand):
 		# Otherwise print an error and insert an error for visibilit
 		if code_snippets.has_snippet(name, language):
 			code = code_snippets.get(name, language).format(m.groupdict())
+			self.view.run_command("insert_snippet", { "contents": code })
+		elif code_snippets.has_snippet(name, "default"):
+			code = code_snippets.get(name, "default").format(m.groupdict())
 			self.view.run_command("insert_snippet", { "contents": code })
 		else:
 			error = "No code snippet supplied for translator object: " + name + \
@@ -134,5 +150,5 @@ class CodeSnippetContainer(object):
 
 parsers = ParserContainer()
 code_snippets = CodeSnippetContainer()
-
+commands = ParserContainer()
 # Above is boiler plate

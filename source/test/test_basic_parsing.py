@@ -113,13 +113,13 @@ class TestUnitWord(unittest.TestCase):
 		self.words.append("hello")
 		self.words.append("world")
 		self.words.append("z")
+		self.words.append("can't")
 
 		# Maybe one day..
 		self.will_be_words = []
 		self.will_be_words.append("Not")
 		self.will_be_words.append("WORD")
 		self.will_be_words.append("wOoD")
-		self.will_be_words.append("can't")
 		self.will_be_words.append("3")
 		self.will_be_words.append("34")
 		self.will_be_words.append("34,002")

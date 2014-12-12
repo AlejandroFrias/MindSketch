@@ -19,8 +19,14 @@ class PromptMindSketchCommand(sublime_plugin.WindowCommand):
 
 	def on_done(self, text):
 		try:
-			command = text
+			command = text.lower()
 			if self.window.active_view():
+				# First check if it is a navigation comand
+				(name, m) = commands.match(command)
+				if m:
+					print("running command: " + name)
+					self.window.run_command(name)
+					return
 				self.window.active_view().run_command("mind_sketch", {"command": command} )
 		except ValueError:
 			pass
@@ -34,13 +40,20 @@ class MindSketchCommand(sublime_plugin.TextCommand):
 		language = re.match("[a-z]+\.([^ ]+).*", self.view.scope_name(self.view.sel()[0].begin())).group(1)
 		print("language: " + language)
 
+		if command == "reparse" or command == "parse":
+			regions = [region for region in self.view.sel()]
+			for region in regions[::-1]:
+				self.view.run_command("mind_sketch", { "command": self.view.substr(region) })
+			return
+
+
 		# Attempt to match the command to one of the parsers,
 		# getting the name of the Translator Object in the process
 		# as well as the Match object
 		(name, m) = parsers.match(command)
 
 		# Exit out if the command didn't match anything
-		if not(m):
+		if not m:
 			print("Command: '" + command + "' did not match any Translator Objects")
 			insert_code(self, edit, command)
 			return
@@ -52,6 +65,9 @@ class MindSketchCommand(sublime_plugin.TextCommand):
 		# Otherwise print an error and insert an error for visibilit
 		if code_snippets.has_snippet(name, language):
 			code = code_snippets.get(name, language).format(m.groupdict())
+			self.view.run_command("insert_snippet", { "contents": code })
+		elif code_snippets.has_snippet(name, "default"):
+			code = code_snippets.get(name, "default").format(m.groupdict())
 			self.view.run_command("insert_snippet", { "contents": code })
 		else:
 			error = "No code snippet supplied for translator object: " + name + \
@@ -134,57 +150,88 @@ class CodeSnippetContainer(object):
 
 parsers = ParserContainer()
 code_snippets = CodeSnippetContainer()
-
+commands = ParserContainer()
 # Above is boiler plate
 # The below code is generated from MindSketch file: examples/example.misk
 
+commands.add('next_field', (u'(next|ok|okay|continue)',))
+commands.add('prev_field', (u'(back|prev|no|go back)',))
+commands.add('undo', (u'(undo|oops)',))
+commands.add('redo', (u'(redo|undo undo|undo that undo)',))
+commands.add('sort_lines', (u'(sort|sort lines)',))
+commands.add('sort_selection', (u'sort', u'(sel|selection)',))
+commands.add('convert_to_camel', (u'(camel|covert to camel|camel case|covert to camel case)',))
+commands.add('convert_to_pascal', (u'(pascal|covert to pascal|pascal case|covert to pascal case)',))
+commands.add('convert_to_snake', (u'(snake|covert to snake|snake case|covert to snake case)',))
+commands.add('next_field', (u'(next|ok|okay|continue)',))
+commands.add('prev_field', (u'(back|prev|no|go back)',))
+commands.add('undo', (u'(undo|oops)',))
+commands.add('redo', (u'(redo|undo undo|undo that undo)',))
+commands.add('sort_lines', (u'(sort|sort lines)',))
+commands.add('sort_selection', (u'sort', u'(sel|selection)',))
+commands.add('convert_to_camel', (u'(camel|covert to camel|camel case|covert to camel case)',))
+commands.add('convert_to_pascal', (u'(pascal|covert to pascal|pascal case|covert to pascal case)',))
+commands.add('convert_to_snake', (u'(snake|covert to snake|snake case|covert to snake case)',))
 # Translator Object: Plus
+# Comments about the Translator ojbect
+# No variables
 
+# comments for each parser
 parsers.add('Plus', (u'plus',))
-code_snippets.add('Plus', 'python', """+ $0""")
+# $TRICK is an unsused variable that will be replaced by empty string.
+# It's a trick to capture the first space
+code_snippets.add('Plus', 'default', """$TRICK + $0""")
 
 # Translator Object: Minus
+# No variables
 
 parsers.add('Minus', (u'minus',))
-code_snippets.add('Minus', 'python', """- $0""")
+code_snippets.add('Minus', 'default', """$TRICK - $0""")
 
 # Translator Object: String
+# No variables
 
 parsers.add('String', (u'string', u'(?P<STRING>.*?)',))
-code_snippets.add('String', 'python', """"{0[STRING]}"$0""")
+code_snippets.add('String', 'default', """"${{1:{0[STRING]}}}"$0""")
 
 # Translator Object: Basic Runnable Program
+# Variables: $NAME
 
 parsers.add('Basic Runnable Program', (u'(make|write)', u'a', u'(?P<NAME>.*?)', u'program',))
 parsers.add('Basic Runnable Program', (u'(begin|build|make|write|create)', u'(?P<NAME>.*?)', u'program',))
 parsers.add('Basic Runnable Program', (u'(make|write|build)', u'a', u'program', u'called', u'(?P<NAME>.*?)',))
 code_snippets.add('Basic Runnable Program', 'python', """import sys
 
-def {0[NAME]}():
-	${{1:pass}}
+def ${{1:{0[NAME]}}}($2):
+	${{3:pass}}
 $0
 
 if __name__ == '__main__':
-	{0[NAME]}()""")
-code_snippets.add('Basic Runnable Program', 'java', """class {0[NAME]} {{
+	${{1:{0[NAME]}}}($2)""")
+code_snippets.add('Basic Runnable Program', 'java', """class ${{1:{0[NAME]}}} {{
 	public static void main(String[] args) {{
-		$1
+		$2
 	}}
 	$0
 }}""")
 
 # Translator Object: Basic class
+# Variables: $NAME
 
 parsers.add('Basic class', (u'(generate|make|create)', u'class', u'(?P<NAME>.*?)',))
 parsers.add('Basic class', (u'(?P<NAME>.*?)', u'is', u'a', u'class',))
-# Even the the Code Snippets can get
 code_snippets.add('Basic class', 'java', """class ${{1:{0[NAME]}}} {{
-	$2
+	public ${{1:{0[NAME]}}}($2) {{
+		$3
+	}}
+	$4
 }}
-$3""")
-# THeir own comments
-code_snippets.add('Basic class', 'python', """class ${{1:{0[NAME]}}}:
-	${{2:pass}}
+$0""")
+code_snippets.add('Basic class', 'python', """class ${{1:{0[NAME]}}}(${{2:object}}):
+	def __init__(self${{3/([^,])?(.*)/(?1:, )/}}${{3:arg}}):
+		${{4:super($1, self).__init__()}}
+${{3/(\A\s*,\s*\Z)|,?\s*([A-Za-z_][a-zA-Z0-9_]*)\s*(=[^,]*)?(,\s*|$)/(?2:\t\tself.$2 = $2\n)/g}}		$5
+	$6
 $0""")
 
 # Translator Object: Basic reader
@@ -221,10 +268,10 @@ code_snippets.add('System arguments', 'python', """sys.argv[${{1:{0[POS]}}}]$0""
 
 # Translator Object: Function Define
 
-parsers.add('Function Define', (u'(define|create)', u'function', u'(?P<FUN>.*?)',))
-parsers.add('Function Define', (u'function', u'(?P<FUN>.*?)',))
-code_snippets.add('Function Define', 'python', """def {0[FUN]}($1):
-	${{2:pass}}
+parsers.add('Function Define', (u'(define|create|defined)', u'function', u'(?P<FUN>.*?)',))
+parsers.add('Function Define', (u'(function called|function)', u'(?P<FUN>.*?)',))
+code_snippets.add('Function Define', 'python', """def ${{1:{0[FUN]}}}($2):
+	${{3:pass}}
 $0""")
 
 # Translator Object: Function Call
@@ -235,6 +282,8 @@ code_snippets.add('Function Call', 'python', """{0[FUNCTION]}(${{1:{0[VARS]}}})$
 
 # Translator Object: If else
 
+parsers.add('If else', (u'if', u'(?P<CONDITION>.*?)', u'do', u'(?P<ACTION1>.*?)', u'(else|otherwise)', u'do', u'(?P<ACTION2>.*?)',))
+parsers.add('If else', (u'do', u'(?P<ACTION1>.*?)', u'if', u'(?P<CONDITION>.*?)', u'otherwise', u'do', u'(?P<ACTION2>.*?)',))
 parsers.add('If else', (u'if', u'(?P<CONDITION>.*?)', u'do', u'(?P<ACTION1>.*?)', u'(else|otherwise)', u'do', u'(?P<ACTION2>.*?)',))
 parsers.add('If else', (u'do', u'(?P<ACTION1>.*?)', u'if', u'(?P<CONDITION>.*?)', u'otherwise', u'do', u'(?P<ACTION2>.*?)',))
 code_snippets.add('If else', 'python', """if ${{1:{0[CONDITION]}}}:
@@ -284,8 +333,8 @@ code_snippets.add('Greater than', 'java', """${{1:{0[FIRST_THING]}}} > ${{2:{0[S
 # Translator Object: Variable assignment
 
 parsers.add('Variable assignment', (u'(?P<NAME>.*?)', u'(equals|is)', u'(?P<VALUE>.*?)',))
-code_snippets.add('Variable assignment', 'python', """{0[NAME]} = ${{1:{0[VALUE]}}}
+code_snippets.add('Variable assignment', 'python', """${{1:{0[NAME]}}} = ${{2:{0[VALUE]}}}
 $0""")
-code_snippets.add('Variable assignment', 'java', """{0[NAME]} = ${{1:{0[VALUE]}}};
+code_snippets.add('Variable assignment', 'java', """${{1:{0[NAME]}}} = ${{1:{0[VALUE]}}};
 $0""")
 

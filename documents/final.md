@@ -12,13 +12,23 @@ To use it please follow the instructions on the (README)[https://github.com/Alej
 
 ## Design of MindSketch
 
-From what I can tell this a is a pretty unique way to use code snippets. Code snippets or code templates are very popular in many text editors and IDE's. They speed up programming. Allowing use of those but from text that represents the idea rather than the code snippet should allow for better teaching tools and accessibility. I think it could even assist experts who want further abstraction from the workings of the computer to be able to deal with the ideas and concepts more directly. One could concieve of using MindSketch to create mini English DSL's for coding in various domains.
+Code snippets or code templates are very popular in many text editors and IDE's. They speed up programming. Allowing use of those but from text that represents the idea rather than the code snippet allows for better teaching tools and accessibility. It could even assist experts who want further abstraction from the workings of the computer to be able to deal with the ideas and concepts more directly. One could concieve of using MindSketch to create mini English DSL's for coding in various domains.
 
-There are two stages of using MindSketch. Stage one is creating Translator Objects in various misk files. Stage two is using the plugin that is generated from the Translator Objects.
+There are two stages of using MindSketch. Stage one is creating `.misk` files. Stage two is using the plugin that is generated from them.
 
-### Stage 1: Translator Objects
+See the [README](https://github.com/AlejandroFrias/MindSketch) for a tutorial on how to use this language.
 
-Translator Objects are written in `.misk` files in the (MindSketch grammar)[https://github.com/AlejandroFrias/MindSketch/blob/master/documents/grammar.md]. To assist users in writing these files, syntax highlighting is available. The README also has instructions on how to use the (MindSKetch Syntax Grammar)[https://github.com/AlejandroFrias/MindSketch/blob/master/source/MindSketch.tmLanguage] in Sublime. The same file is compatible with TextMate and many other text editors and IDE's that support custom syntax highlighting.
+### Stage 1: Write MindSketch Files
+
+MindSketch files have Translator Objects defined in them as well as Commands. Translator Objects are translations from English to code snippets. Commands are translations from English to Sublime comands, mostly for code navigation purposes.
+
+Multiple files can be merged together using `import` statements at the top fo the file.
+
+To assist users in writing these files, syntax highlighting is available. The README also has instructions on how to use the [MindSKetch Syntax Grammar](https://github.com/AlejandroFrias/MindSketch/blob/master/source/MindSketch.tmLanguage) in Sublime.
+
+#### Translator Objects
+
+Translator Objects are written in `.misk` files. They follow the [MindSketch grammar](https://github.com/AlejandroFrias/MindSketch/blob/master/documents/grammar.md).
 
 '''
 # This is a Translator Object named 'For loop'
@@ -57,6 +67,24 @@ Code Snippets are language dependent. The example above has just one snippet for
 Code Snippets can have anything in them. The parts that aren't directly inserted raw are the variables and tab stops or fields. Variables have the same syntax as they do in Parser Objects, `$ALL_CAPS_AND_NUMBERS_2`. Anything captured by them from the user input is directly substitued into the Code Snippet. If the Code Snippet doesn't use the same set of variables as the Parser Objects, a ValueError is thorwn (or a warning if there are extra).
 
 Tab stops/fields are a Sublime Text feautre that I've take advantage of in MindSketch. You can see documentation on them (here)[http://sublimetext.info/docs/en/extensibility/snippets.html]. Since MindSketch was developed to be used for Sublime Text 3 plugins, some of its features, like the Code Snippet, are specific to the Sublime Text.
+
+#### Commands
+
+* Note * This feature is new and not fully tested.
+
+Commands, like those found [here](https://github.com/AlejandroFrias/MindSketch/tree/master/examples/navigation_commands.misk), basically binds a Parser Object to a Sublime command, rather than to a Snippet. `next_filed` and `prev_field` are useful for moving between tab stops created from the Code Snippets. The Navigation Command can bind to any Sublime command, even those defined in your own custom plugins. An example of that is the `convert_to_snake` that is a case converter from a plugin downloaded from [CaseConversio](https://github.com/jdc0589/CaseConversion).
+
+They look like this:
+
+```
+COMMAND: next_field
+(next|next field|ok)
+COMMAND END
+```
+
+This Command accepts `next` or `next field` or `ok` as input and will execute the `next_field` command.
+
+Commands are used to help fully elimnate the need for the mouse or keyboard, as navigation commands, search commands, find and replace, movements of selection, etc. can all be bound to English statements.
 
 
 ### Stage 2: Sublime Text 3 Plugin

@@ -12,7 +12,7 @@
 	<array>
 		<dict>
 			<key>begin</key>
-			<string>^(CODE START:\s+([a-z][a-z_\-+]*))[\s]*$</string>
+			<string>^(CODE START:)\s+([a-z][a-z_\-+]*)[\s]*$</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -30,6 +30,8 @@
 			<string>string.code_snippet.misk</string>
 			<key>end</key>
 			<string>(CODE END)</string>
+			<key>name</key>
+			<string>meta.code_snippet.misk</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -84,6 +86,8 @@
 			<string>string.parser_object.misk</string>
 			<key>end</key>
 			<string>(PARSER END)</string>
+			<key>name</key>
+			<string>meta.parser_object.misk</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -109,6 +113,29 @@
 			<string>[^/]+(/[^/]+)*\.misk</string>
 			<key>name</key>
 			<string>meta.import.misk</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>^(COMMAND:)\s+([a-z]+(?:_[a-z]+)*)</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.nav_command.misk</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.nav_command.misk</string>
+				</dict>
+			</dict>
+			<key>contentName</key>
+			<string>string.nav_command.parser.misk</string>
+			<key>end</key>
+			<string>(COMMAND END)</string>
+			<key>name</key>
+			<string>meta.nav_command_misk</string>
 		</dict>
 		<dict>
 			<key>match</key>

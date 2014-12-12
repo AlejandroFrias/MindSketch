@@ -1,0 +1,206 @@
+import navigation_commands.misk
+
+# No variables
+Plus:
+# $TRICK is an unsused variable that will be replaced by empty string.
+# It's a trick to capture the first space
+CODE START: default
+$TRICK + $0
+CODE END
+
+# No variables
+Minus:
+CODE START: default
+$TRICK - $0
+CODE END
+
+
+# No variables
+String:
+CODE START: default
+"${1:$STRING}"$0
+CODE END
+
+# Variables: $NAME
+Basic Runnable Program:
+CODE START: python
+import sys
+
+def ${1:$NAME}($2):
+	${3:pass}
+$0
+
+if __name__ == '__main__':
+	${1:$NAME}($2)
+CODE END
+
+CODE START: java
+class ${1:$NAME} {
+	public static void main(String[] args) {
+		$2
+	}
+	$0
+}
+CODE END
+
+# Variables: $NAME
+Basic class:
+CODE START: java
+class ${1:$NAME} {
+	public ${1:$NAME}($2) {
+		$3
+	}
+	$4
+}
+$0
+CODE END
+
+CODE START: python
+class ${1:$NAME}(${2:object}):
+	def __init__(self${3/([^,])?(.*)/(?1:, )/}${3:arg}):
+		${4:super($1, self).__init__()}
+${3/(\A\s*,\s*\Z)|,?\s*([A-Za-z_][a-zA-Z0-9_]*)\s*(=[^,]*)?(,\s*|$)/(?2:\t\tself.$2 = $2\n)/g}		$5
+	$6
+$0
+CODE END
+
+Basic reader:
+CODE START: java
+BufferedReader ${1:$NAME} = new BufferedReader(new FileReader(${2:$FILE}));
+$0
+CODE END
+
+Basic for loop:
+CODE START: java
+for(int i = ${1:$START}; i < ${2:$END}; i++) {
+    $3
+}
+$0
+CODE END
+
+CODE START: python
+for x in xrange(${1:$START}, ${2:$END}):
+    ${3:pass}
+$0
+CODE END
+
+Print:
+CODE START: java
+System.out.println(${1:"$MESSAGE"});
+$0
+CODE END
+
+CODE START: python
+print(${1:"$MESSAGE"})
+$0
+CODE END
+
+System arguments:
+
+CODE START: python
+sys.argv[${1:$POS}]$0
+CODE END
+
+Function Define:
+
+CODE START: python
+def ${1:$FUN}($2):
+	${3:pass}
+$0
+CODE END
+
+Function Call:
+
+CODE START: java
+$FUNCTION(${1:$VARS})$0
+CODE END
+
+CODE START: python
+$FUNCTION(${1:$VARS})$0
+CODE END
+
+If else:
+
+PARSER START
+if $CONDITION do $ACTION1 (else|otherwise) do $ACTION2
+PARSER END
+
+PARSER START
+do $ACTION1 if $CONDITION otherwise do $ACTION2
+PARSER END
+
+CODE START: python
+if ${1:$CONDITION}:
+	${2:$ACTION1}
+else:
+	${3:$ACTION2}
+$0
+CODE END
+
+CODE START: java
+if (${1:$CONDITION}) {
+	${2:$ACTION1}
+} else {
+	${3:$ACTION2}
+}
+$0
+CODE END
+
+If Condition:
+
+CODE START: python
+if ${1:$CONDITION}:
+	${2:$ACTION}
+$0
+CODE END
+
+CODE START: java
+if (${1:$CONDITION}) {
+	${2:$ACTION}
+}
+$0
+CODE END
+
+Return:
+
+CODE START: python
+return ${1:$THING}
+$0
+CODE END
+
+CODE START: java
+return ${1:$THING};
+$0
+CODE END
+
+Less than:
+
+CODE START: python
+${1:$FIRST_THING} < ${2:$SECOND_THING}$0
+CODE END
+
+CODE START: java
+${1:$FIRST_THING} < ${2:$SECOND_THING}$0
+CODE END
+
+Greater than:
+
+CODE START: python
+${1:$FIRST_THING} > ${2:$SECOND_THING}$0
+CODE END
+
+CODE START: java
+${1:$FIRST_THING} > ${2:$SECOND_THING}$0
+CODE END
+
+Variable assignment:
+
+CODE START: python
+${1:$NAME} = ${2:$VALUE}
+$0
+CODE END
+
+CODE START: java
+${1:$NAME} = ${1:$VALUE};
+$0
+CODE END

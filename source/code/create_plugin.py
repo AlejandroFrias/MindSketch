@@ -36,7 +36,11 @@ import warnings
 import collections
 import sys
 import os
+import shutil
 from pypeg2 import parse
+
+# The normal location for the Sublime Text 3 User package folder on OSX.
+user_package = "~/Library/Application Support/Sublime Text 3/Packages/User"
 
 def main():
 	p = argparse.ArgumentParser (description="Converts MindSketch (.misk) file into a Sublime Text 3 plugin.")
@@ -46,17 +50,17 @@ def main():
 
 	# Default location for output is the Packages -> User folder for Sublime Text 3
 	if args.output is None:
-		args.output = os.path.expanduser("~/Library/Application Support/Sublime Text 3/Packages/User/mind_sketch.py")
+		args.output = os.path.expanduser(user_package + "/mind_sketch.py")
 
 	# Parse the file and get the AST (which is a list of Translator Objects)
 	ast = mindsketch_parser.recursive_parse(args.file)
 
 	# Organize the AST and validate it (check for ValueErrors)
-	translator_objects = TranslatorObjectList(ast)
-	translator_objects.validate()
+	organized_ast = TranslatorObjectList(ast)
+	organized_ast.validate()
 
 	output_lines = ["# The below code is generated from MindSketch file: " + args.file + "\n\n"]
-	output_lines.extend(translator_objects.output_lines())
+	output_lines.extend(organized_ast.output_lines())
 
 	# The bulk of the plugin work is boiler plate.
 	print("Getting Boiler Plate plugin code")
@@ -68,6 +72,14 @@ def main():
 	with open(args.output, 'w') as f:
 		f.writelines(output_lines)
 
+	# Just some case conversion plugins for extra functionality
+	if not os.path.isfile(os.path.expanduser(user_package) + "/case_conversion.py") and os.path.exists(os.path.expanduser(user_package)):
+		print("Adding case_coversions.py")
+		shutil.copyfile("source/code/case_conversion/case_conversion.py", os.path.expanduser(user_package + "/case_conversion.py"))
+	if not os.path.isfile(os.path.expanduser(user_package) + "/case_parse.py") and os.path.exists(os.path.expanduser(user_package)):
+		print("Adding case_parse.py")
+		shutil.copyfile("source/code/case_conversion/case_parse.py", os.path.expanduser(user_package + "/case_parse.py"))
+
 
 """
 TranslatorObjectList organizes all the parsed translator objects for
@@ -75,9 +87,10 @@ easy validations and organized output to the plugin file
 """
 class TranslatorObjectList(collections.OrderedDict):
 
-	def __init__(self, translator_objects):
+	def __init__(self, ast):
 		super(TranslatorObjectList, self).__init__()
-		for translator_object in translator_objects:
+		self.nav_commands = ast.commands
+		for translator_object in ast:
 			self.add(translator_object)
 		
 
@@ -148,10 +161,19 @@ class TranslatorObjectList(collections.OrderedDict):
 	"""
 	def output_lines(self):
 		output_lines = []
+		for nav_command in self.nav_commands:
+			output_lines.extend(self.output_nav_command(nav_command))
 		for name in self:
 			output_lines.extend(self.output_translator_object(name))
 		return output_lines
 
+	def output_nav_command(self, nav_command):
+		nav_command_str = "commands.add("
+		nav_command_str += repr(str(nav_command.command)) + ", "
+		parser_groups = [repr(group) for group in nav_command]
+		nav_command_str += "(" + ", ".join(parser_groups) + ",))" + "\n"
+
+		return [nav_command_str]
 
 	"""
 	Helper method for output_lines() that generates all the output lines
@@ -189,6 +211,7 @@ class TranslatorObjectList(collections.OrderedDict):
 		output_lines.append(parser_str)
 		return output_lines
 
+
 	"""
 	Helper method for output_translator_object(name) that generates
 	all the output lines for an individual Code Snippet
@@ -207,6 +230,7 @@ class TranslatorObjectList(collections.OrderedDict):
 		code_str += ")" + "\n"
 		output_lines.append(code_str)
 		return output_lines
+
 
 if __name__ == '__main__':
 	main()
