@@ -112,7 +112,7 @@ For the above Translator Object, the input `loop from 1 to 10` would produce `fo
 
 * Note * This feature is new and not fully tested.
 
-Commands, like those found [here](https://github.com/AlejandroFrias/MindSketch/tree/master/examples/navigation_commands.misk), basically binds a Parser Object to a Sublime command, rather than to a Snippet. `next_filed` and `prev_field` are useful for moving between tab stops created from the Code Snippets. The Navigation Command can bind to any Sublime command, even those defined in your own custom plugins. An example of that is the `convert_to_snake` that is a case converter from a plugin downloaded from [CaseConversio](https://github.com/jdc0589/CaseConversion).
+Commands, like those found [here](https://github.com/AlejandroFrias/MindSketch/tree/master/examples/navigation_commands.misk), basically binds a Parser Object to a Sublime command, rather than to a Snippet. `next_filed` and `prev_field` are useful for moving between tab stops created from the Code Snippets. The Navigation Command can bind to any Sublime command, even those defined in your own custom plugins. An example of that is the `convert_to_snake` that is a case converter from a plugin downloaded from [CaseConversion](https://github.com/jdc0589/CaseConversion).
 
 They look like this:
 
