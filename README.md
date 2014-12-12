@@ -63,15 +63,15 @@ MindSketch uses [pip](https://pypi.python.org/pypi/pip)  to manage the various P
 	
 	Open up the packages folder from the menu: `Sublime Text -> Preferences -> Browse Packages`
 	
-	![Browse Packages](https://github.com/AlejandroFrias/MindSketch/tree/master/documents/resources/browse_packages.png)
+	![Browse Packages](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/master/documents/resources/browse_packages.png)
 
 	Save the file to the `User` folder.
 
-	![User Folder](https://github.com/AlejandroFrias/MindSketch/tree/master/documents/resources/user_folder.png)
+	![User Folder](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/master/documents/resources/user_folder.png)
 	
 	In Sublime ``` ctrl+` ``` opens the Sublime console. Error messages can show up here for incorrect use of the plugin.
 
-	![Sublime console](https://github.com/AlejandroFrias/MindSketch/tree/master/documents/resources/sublime_console.png)
+	![Sublime console](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/master/documents/resources/sublime_console.png)
 
 ## Features
 
@@ -105,19 +105,18 @@ PARSER END
 ```
 This accepts `for loop from 1 to 10` as well as `loop from 1 to 10`, assigning variables `$START` and `$END` to `1` and `10`, respectively.
 
-Code Snippets are Sublime style snippets. Check out their API [here](http://sublimetext.info/docs/en/extensibility/snippets.html). They use all the same tab stops and placholder syntax as the Sublime snippet language. They also substitute in the values grabbed from the user input and assigned to the variables. Very importantly, you can have only one Code Snippet for each language and one default one. All are optional.
+Code Snippets are Sublime style snippets. Check out their API [here](http://docs.sublimetext.info/en/latest/extensibility/snippets.html). They use all the same tab stops and placholder syntax as the Sublime snippet language. They also substitute in the values grabbed from the user input and assigned to the variables. Very importantly, you can have only one Code Snippet for each language and one default one. All are optional.
 
 For the above Translator Object, the input `loop from 1 to 10` would produce `for x in xrange(1, 10)` with the cursor on the next line indented to the `$0`. It will only do this inside a python file though. The bottom right corner of the sublime window shows the file type recognized and it is a drop down menu that can be changed.
 
-![Sublime View](https://github.com/AlejandroFrias/MindSketch/tree/master/documents/resources/blank_sublime.png)
+![Sublime View](https://raw.githubusercontent.com/AlejandroFrias/MindSketch/master/documents/resources/blank_sublime.png)
 
-![Language List](https://github.com/AlejandroFrias/MindSketch/tree/master/documents/resources/language_list.png)
 
 #### Commands
 
 * Note * This feature is new and not fully tested.
 
-Commands, like those found [here](https://github.com/AlejandroFrias/MindSketch/tree/master/examples/navigation_commands.misk), basically binds a Parser Object to a Sublime command, rather than to a Snippet. `next_filed` and `prev_field` are useful for moving between tab stops created from the Code Snippets. The Navigation Command can bind to any Sublime command, even those defined in your own custom plugins. An example of that is the `convert_to_snake` that is a case converter from a plugin downloaded from [CaseConversio](https://github.com/jdc0589/CaseConversion).
+Commands, like those found [here](https://github.com/AlejandroFrias/MindSketch/tree/master/examples/navigation_commands.misk), basically binds a Parser Object to a Sublime command, rather than to a Snippet. `next_filed` and `prev_field` are useful for moving between tab stops created from the Code Snippets. The Navigation Command can bind to any Sublime command, even those defined in your own custom plugins. An example of that is the `convert_to_snake` that is a case converter from a plugin downloaded from [CaseConversion](https://github.com/jdc0589/CaseConversion).
 
 They look like this:
 
