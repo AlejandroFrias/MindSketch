@@ -1,7 +1,7 @@
 import navigation_commands.misk
 
 # No variables
-Plus:
+Plus Sign:
 # $TRICK is an unsused variable that will be replaced by empty string.
 # It's a trick to capture the first space
 CODE START: default
@@ -9,7 +9,7 @@ $TRICK + $0
 CODE END
 
 # No variables
-Minus:
+Minus Sign:
 CODE START: default
 $TRICK - $0
 CODE END
@@ -96,13 +96,11 @@ $0
 CODE END
 
 System arguments:
-
 CODE START: python
 sys.argv[${1:$POS}]$0
 CODE END
 
 Function Define:
-
 CODE START: python
 def ${1:$FUN}($2):
 	${3:pass}
@@ -110,7 +108,6 @@ $0
 CODE END
 
 Function Call:
-
 CODE START: java
 $FUNCTION(${1:$VARS})$0
 CODE END
@@ -120,7 +117,6 @@ $FUNCTION(${1:$VARS})$0
 CODE END
 
 If else:
-
 PARSER START
 if $CONDITION do $ACTION1 (else|otherwise) do $ACTION2
 PARSER END
@@ -147,7 +143,6 @@ $0
 CODE END
 
 If Condition:
-
 CODE START: python
 if ${1:$CONDITION}:
 	${2:$ACTION}
@@ -162,7 +157,6 @@ $0
 CODE END
 
 Return:
-
 CODE START: python
 return ${1:$THING}
 $0
@@ -174,7 +168,6 @@ $0
 CODE END
 
 Less than:
-
 CODE START: python
 ${1:$FIRST_THING} < ${2:$SECOND_THING}$0
 CODE END
@@ -184,7 +177,6 @@ ${1:$FIRST_THING} < ${2:$SECOND_THING}$0
 CODE END
 
 Greater than:
-
 CODE START: python
 ${1:$FIRST_THING} > ${2:$SECOND_THING}$0
 CODE END
@@ -194,7 +186,6 @@ ${1:$FIRST_THING} > ${2:$SECOND_THING}$0
 CODE END
 
 Variable assignment:
-
 CODE START: python
 ${1:$NAME} = ${2:$VALUE}
 $0
@@ -203,4 +194,14 @@ CODE END
 CODE START: java
 ${1:$NAME} = ${1:$VALUE};
 $0
+CODE END
+
+Addition:
+CODE START: default
+${1:$L} + ${2:$R}$0
+CODE END
+
+Subtraction:
+CODE START: default
+${1:$L} - ${2:$R}$0
 CODE END

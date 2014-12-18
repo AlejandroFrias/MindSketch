@@ -1,15 +1,13 @@
 import navigation_commands.misk
 import example_code_snippets.misk
 
-# Comments about the Translator ojbect
-Plus:
+Plus Sign:
 
-# comments for each parser
 PARSER START
 plus
 PARSER END
 
-Minus:
+Minus Sign:
 PARSER START
 minus
 PARSER END
@@ -87,7 +85,7 @@ PARSER END
 Function Call:
 
 PARSER START
-call $FUNCTION (with|on) $VARS
+(call|called) $FUNCTION (with|on) $VARS
 PARSER END
 
 If else:
@@ -136,3 +134,12 @@ PARSER START
 $NAME (equals|is) $VALUE
 PARSER END
 
+Addition:
+PARSER START
+$L plus $R
+PARSER END
+
+Subtraction:
+PARSER START
+$L minus $R
+PARSER END
